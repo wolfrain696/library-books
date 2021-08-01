@@ -1,0 +1,35 @@
+.content {
+
+}
+
+.search {
+    display: flex;
+    width: 281px;
+    border: 1px solid rgba(0, 0, 0, 0.26);
+    min-height: 49px;
+}
+
+input {
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    width: 195px;
+    vertical-align: middle;
+    font-size: 24px;
+}
+
+img {
+    width: 24px;
+    height: 24px;
+}
+
+button {
+    justify-content: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+

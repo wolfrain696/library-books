@@ -1,5 +1,5 @@
 import S from './Library.module.css'
-import {Favorites} from "./ Favorites/Favorites";
+import {Favorites} from "./Favorites/Favorites";
 import bookImg from '../../img/book.png'
 
 export const Library = (props) => {
