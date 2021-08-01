@@ -1,6 +1,7 @@
 import S from './Library.module.css'
 import {Favorites} from "./ Favorites/Favorites";
 import bookImg from '../../img/book.png'
+import {Book} from './Book/Book'
 
 export const Library = (props) => {
     return (
@@ -11,6 +12,7 @@ export const Library = (props) => {
             </header>
             <main className={S.body}>
                 <Favorites/>
+                <Book/>
             </main>
 
         </div>
