@@ -1,4 +1,4 @@
-import './Seartch.module.css'
+import './Search.module.css'
 
 
 export const Search = (props) => {
