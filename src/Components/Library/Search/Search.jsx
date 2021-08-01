@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {SearchCard} from './SearchCard/SearchCard';
+
 import S from 'Search.module.css';
 
 import searchImg from '../../../img/search.svg';
@@ -20,6 +22,7 @@ export const Search = (props) => {
                   </button>
               </div>
           </form>
+        <SearchCard />
       </div>
     );
 };
