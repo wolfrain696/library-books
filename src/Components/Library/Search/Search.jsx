@@ -1,6 +1,9 @@
 import React from 'react';
 import {SearchCard} from './SearchCard/SearchCard';
+import Button from './Button/Button';
+
 import S from './Search.module.css';
+
 import searchImg from '../../../img/search.svg';
 import filterImg from '../../../img/filter.svg';
 
@@ -10,13 +13,13 @@ export const Search = (props) => {
       <div className={S.content}>
           <form>
               <div className={S.search}>
-                  <button>
-                    <img src={searchImg} alt="search"/>
-                  </button>
+                <Button onClick={() => {alert('Найдем новую книгу?')}}>
+                  <img src={searchImg} alt="search"/>
+                </Button>
                   <input placeholder="Поиск..."/>
-                  <button>
-                    <img src={filterImg} alt="filter"/>
-                  </button>
+                <Button onClick={() => {alert('Отфильтруем книги?')}}>
+                  <img src={filterImg} alt="filter"/>
+                </Button>
               </div>
           </form>
         <SearchCard />
