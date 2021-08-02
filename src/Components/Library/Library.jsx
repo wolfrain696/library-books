@@ -2,8 +2,12 @@ import S from './Library.module.css'
 import {Favorites} from "./ Favorites/Favorites";
 import bookImg from '../../img/book.png'
 import {Book} from './Book/Book'
+import {BooksJSON} from '../../Fetch/BookData'
+
+
 
 export const Library = (props) => {
+
     return (
         <div className={S.container}>
             <header className={S.header}>

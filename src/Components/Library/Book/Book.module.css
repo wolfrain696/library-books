@@ -1,6 +1,6 @@
 .book {
-    width: 200px;
-    height: 200px;
+    /*width: 200px;*/
+    /*height: 200px;*/
     margin-right: 20px;
 }
 
@@ -14,7 +14,7 @@
     font: 300% serif;
 }
 
-.h5 {
+.p {
     text-align: justify;
     text-indent: 25px;
     font: 150% serif;
