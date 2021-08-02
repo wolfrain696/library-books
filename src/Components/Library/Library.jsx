@@ -15,8 +15,11 @@ export const Library = (props) => {
             </header>
             <main className={S.body}>
                 <Favorites/>
-                <Search/>
-                <Book/>
+                <div className={S.content}>
+                  <Search/>
+                  <Book/>
+                </div>
+
             </main>
         </div>
     );
