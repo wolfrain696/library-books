@@ -1,9 +1,6 @@
 import React from 'react';
-
 import {SearchCard} from './SearchCard/SearchCard';
-
-import S from 'Search.module.css';
-
+import S from './Search.module.css';
 import searchImg from '../../../img/search.svg';
 import filterImg from '../../../img/filter.svg';
 

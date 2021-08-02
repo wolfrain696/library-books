@@ -1,6 +1,6 @@
 import React from 'react';
 
-import S from 'SearchCard.module.css';
+import S from './SearchCard.module.css';
 
 
 export const SearchCard = (props) => {
