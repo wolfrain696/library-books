@@ -1,5 +1,5 @@
 import {Favorites} from './Favorites/Favorites';
-import {SearchCard} from './Search/SearchCard';
+import {Search} from './Search/Search';
 import S from './Library.module.css';
 import bookImg from '../../img/book.png';
 
@@ -13,7 +13,7 @@ export const Library = (props) => {
             </header>
             <main className={S.body}>
                 <Favorites/>
-                <SearchCard/>
+                <Search/>
             </main>
         </div>
     );

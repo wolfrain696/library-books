@@ -1,11 +1,12 @@
 import React from 'react';
 import {Button} from './Button/Button';
+import {BookCard} from './BookCard/BookCard';
 import S from './Search.module.css';
 import searchImg from '../../../img/search.svg';
 import filterImg from '../../../img/filter.svg';
 
 
-export const SearchCard = (props) => {
+export const Search = (props) => {
     return (
       <div className={S.content}>
         <form>
