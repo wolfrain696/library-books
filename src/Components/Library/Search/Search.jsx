@@ -13,9 +13,7 @@ export const Search = (props) => {
       <div className={S.content}>
           <form>
               <div className={S.search}>
-                <Button onClick={() => {alert('Найдем новую книгу?')}}>
-                  <img src={searchImg} alt="search"/>
-                </Button>
+                <img src={searchImg} alt="search"/>
                   <input placeholder="Поиск..."/>
                 <Button onClick={() => {alert('Отфильтруем книги?')}}>
                   <img src={filterImg} alt="filter"/>

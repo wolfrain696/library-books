@@ -4,6 +4,7 @@
 
 .search {
     display: flex;
+    justify-content: center;
     width: 281px;
     border: 1px solid rgba(0, 0, 0, 0.26);
     min-height: 49px;
@@ -14,17 +15,10 @@ input {
     outline: none;
     -webkit-appearance: none;
     width: 195px;
-    vertical-align: middle;
     font-size: 24px;
 }
 
-img {
-    width: 24px;
-    height: 24px;
-}
-
 button {
-    justify-content: center;
     background-color: transparent;
     background-repeat: no-repeat;
     border: none;
