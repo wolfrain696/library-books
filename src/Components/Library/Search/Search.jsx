@@ -1,9 +1,7 @@
 import React from 'react';
 import {SearchCard} from './SearchCard/SearchCard';
 import Button from './Button/Button';
-
 import S from './Search.module.css';
-
 import searchImg from '../../../img/search.svg';
 import filterImg from '../../../img/filter.svg';
 
