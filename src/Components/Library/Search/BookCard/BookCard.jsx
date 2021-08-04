@@ -1,17 +1,25 @@
 import React from 'react';
 import {Button} from '../Button/Button';
 import S from '../BookCard/BookCard.module.css';
-import imageBook from '../../../../img/imagebook.png';
 import favoriteSearchImg from '../../../../img/favoritesearch.svg';
+import avatar from '../../../../img/avatar_author-lg.png';
 
 
-export const BookCard = ({title, img}) => {
+export const BookCard = ({title, img, name, authorPhoto, item, changePage}) => {
+
   return (
-    <div className={S.card}>
-      <img className={S.round} src={`http://covers.openlibrary.org/b/olid/${img}-M.jpg`} alt="book card"/>
+    <li className={S.card}>
+
+      <div className={S.avatarBox}>
+        <img className={S.avatar}
+                src={`http://covers.openlibrary.org/${img ? 'b' : 'a'}/olid/${img ? img : authorPhoto}-M.jpg`}
+                alt='book card' />
+        <img className={S.defaultAvatar} src={avatar} alt='avatar'/>
+      </div>
+
       <div className={S.textBox}>
-        <div className={S.mainText}>
-          {title}
+        <div onClick={() => changePage(item)} className={S.mainText}>
+          {title ? title : name}
         </div>
         <div className={S.secondaryTextBox}>
           <div className={S.secondaryText}>
@@ -19,12 +27,14 @@ export const BookCard = ({title, img}) => {
           </div>
           <Button
             className={S.buttonCard}
-            onClick={() => {alert('Добавим в избранное?')}}
+            onClick={() => {
+              alert('Добавим в избранное?')
+            }}
           >
-            <img src={`favoriteSearchImg`} alt="filter"/>
+            <img src={favoriteSearchImg} alt='filter' />
           </Button>
         </div>
       </div>
-    </div>
-  );
-};
+    </li>
+  )
+}
