@@ -1,0 +1,27 @@
+.book {
+    min-width: 170px;
+    min-height: 200px;
+    margin-right: 20px;
+}
+
+.description {
+    margin-left: 4%;
+    width: 900px;
+    height: auto;
+}
+
+.h1 {
+    font: 300% serif;
+}
+
+.p {
+    text-align: justify;
+    text-indent: 25px;
+    font: 150% serif;
+}
+
+.like_book {
+    margin-left: 2%;
+    max-width: 25px;
+}
+
