@@ -1,13 +1,11 @@
 import S from './Book.module.css'
-import heartImg from '../../../img/heart.svg'
 import avatar from '../../../img/avatar_author-lg.png'
+import heartImg from '../../../img/heart.svg'
 
-
-export const Book = ({page}) => {
-
+export const Author = ({page}) => {
   if (!page) {
     return (
-      <h1>Выбери книгу</h1>
+      <h1>Выбери автора</h1>
     )
   }
 
@@ -15,9 +13,9 @@ export const Book = ({page}) => {
     <div className={S.description}>
       <div className={S.top}>
         <div className={S.avatar}>
-          {page.cover_i?
+          {page.photos ?
             <img
-              src={`http://covers.openlibrary.org/b/id/${page.cover_i}-M.jpg`}
+              src={`http://covers.openlibrary.org/b/id/${page.photos[0]}-M.jpg`}
               alt='label' align='left'
               className={S.book} />
             :
@@ -26,10 +24,10 @@ export const Book = ({page}) => {
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page.title }
+            {page.name}
           </h1>
-          <p>Автор: {page.author_name}</p>
-          <p>Дата публикации: {page.publish_date[0]}</p>
+          <p>Лучшая работа: {page.top_work} </p>
+          {/*<p>Дата смерти: </p>*/}
         </div>
       </div>
       <button>
@@ -59,4 +57,3 @@ export const Book = ({page}) => {
     </div>
   )
 }
-
