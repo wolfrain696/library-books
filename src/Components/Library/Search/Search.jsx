@@ -4,18 +4,13 @@ import {BookCard} from './BookCard/BookCard';
 import S from './Search.module.css';
 import searchImg from '../../../img/search.svg';
 import filterImg from '../../../img/filter.svg';
-import {BooksJSON} from '../../../Fetch/BookData';
 
 
-export const Search = (props) => {
+export const Search = ({data, changePage}) => {
 
-  const ListBook = BooksJSON;
-
-  const ShowList = ListBook.map(list =>
-    <BookCard title={list.title} img={list.cover_edition_key}/>
+  const ShowList = data.docs.map(list =>
+    <BookCard changePage={changePage} item={list} authorPhoto={list.key} key={list.key} name={list.name} title={list.title} img={list.cover_edition_key}/>
   )
-
-  console.log(ListBook);
 
     return (
       <div className={S.content}>
@@ -30,10 +25,13 @@ export const Search = (props) => {
             </Button>
           </div>
         </form>
-        {
-          ShowList
-        }
+        <ul>
+          {
+            ShowList
+          }
+        </ul>
       </div>
     );
 };
+
 

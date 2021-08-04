@@ -1,15 +1,14 @@
 import S from './Book.module.css'
 // import bookImg from '../../../img/book.png'
 import heartImg from '../../../img/heart.svg'
-import {BooksJSON} from '../../../Fetch/BookData'
+import {BookJSON} from '../../../Fetch/BookData'
 import {description} from '../../../Fetch/description'
 
 
 export const Book = (props) => {
 
-  let Book = BooksJSON[0]
+  let Book = BookJSON.docs
   let descriptionBook = description.description
-
 
   return (
     <div className={S.description}>

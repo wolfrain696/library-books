@@ -1,21 +1,47 @@
 .card {
     display: flex;
+    align-items: center;
     width: 281px;
     height: 81px;
     border: 1px solid rgba(0, 0, 0, 0.26);
 }
 
-.round {
+/*.round {
     width: 50px;
     height: 50px;
     padding: 18px 15px;
     border-radius: 50px;
     border: none;
+}*/
+
+.avatarBox {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+.avatarBox img {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+}
+
+.avatar {
+    z-index: 10;
+}
+
+.defaultAvatar {
+    z-index: 1;
 }
 
 .textBox {
-    width: 193px;
-    padding-top: 18px;
+    max-width: 193px;
     background: white;
     display: flex;
     flex-direction: column;
@@ -36,7 +62,7 @@
 }
 
 .secondaryTextBox {
-    width: 189px;
+    max-width: 189px;
 }
 
 .secondaryText {
