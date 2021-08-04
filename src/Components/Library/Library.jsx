@@ -25,7 +25,6 @@ export const Library = (props) => {
                   <Search/>
                   <Book/>
                 </div>
-
             </main>
         </div>
     );
