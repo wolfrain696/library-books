@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {BookJSON} from '../../Fetch/BookData';
 import S from './Library.module.css';
 import bookImg from '../../img/book.png';
+import {Author} from './Book/Author'
 
 
 export const Library = (props) => {
@@ -20,6 +21,8 @@ export const Library = (props) => {
     setData(newData)
   }
 
+  console.log(currentPage);
+
   return (
     <div className={S.container}>
       <header className={S.header}>
@@ -30,7 +33,12 @@ export const Library = (props) => {
         <Favorites onData={changeData} />
         <div className={S.content}>
           <Search data={data} changePage={changePage} />
-          <Book />
+          {
+            currentPage && currentPage.type === 'work' ?
+              <Book page={currentPage} />
+              :
+              <Author page={currentPage}/>
+          }
         </div>
       </main>
     </div>
