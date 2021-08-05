@@ -27,3 +27,7 @@ button {
     outline: none;
 }
 
+.searchList{
+    overflow: scroll;
+    max-height: 500px;
+}

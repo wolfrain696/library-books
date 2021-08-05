@@ -6,10 +6,10 @@ import searchImg from '../../../img/search.svg';
 import filterImg from '../../../img/filter.svg';
 
 
-export const Search = ({data, changePage}) => {
+export const Search = ({data, changePage, page}) => {
 
   const ShowList = data.docs.map(list =>
-    <BookCard changePage={changePage} item={list} authorPhoto={list.key} key={list.key} name={list.name} title={list.title} img={list.cover_edition_key}/>
+    <BookCard page={page} changePage={changePage} item={list} authorPhoto={list.key} key={list.key} name={list.name} title={list.title} img={list.cover_edition_key}/>
   )
 
     return (
@@ -25,7 +25,7 @@ export const Search = ({data, changePage}) => {
             </Button>
           </div>
         </form>
-        <ul>
+        <ul className={S.searchList}>
           {
             ShowList
           }
