@@ -37,7 +37,7 @@ export const Library = (props) => {
           <Favorites onData={changeData} />
         </div>
         <div className={S.content}>
-          <Search data={data} changePage={changePage} />
+          <Search page={currentPage} data={data} changePage={changePage} />
           {
             currentPage && currentPage.type === 'work' ?
               <Book page={currentPage} />
