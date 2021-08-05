@@ -26,6 +26,7 @@
     padding: 0 30px;
     display: flex;
     justify-content: space-around;
+    position: relative;
 }
 
 .content{
@@ -34,4 +35,71 @@
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.26);
     border-radius: 8px;
+}
+
+
+
+@media (max-width: 800px) {
+    .sidebar{
+        position: absolute;
+        top: 0;
+        left: -100%;
+        transition: 0.5s all;
+        z-index: 100;
+        background-color: #0094FF;
+        height: 100%;
+    }
+    .sidebar.active{
+        left: 0;
+        padding-left: 10px;
+    }
+    .burger{
+        margin-left: 20px;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        transition: 1s all ease;
+    }
+    .burger span{
+        height: 2px;
+        display: block;
+        background-color: black;
+        transition: 1s all ease;
+    }
+
+    .burger span::before,
+    .burger span::after{
+        content: ' ';
+        display: block;
+        height: 2px;
+        background-color: black;
+        position: relative;
+        left: 0;
+        top: 0px;
+        transition: 0.5s all ease;
+    }
+    .burger span::before{
+        top: -5px;
+    }
+    .burger span::after{
+        top: 3px;
+    }
+
+
+    .burger.active span{
+        transform: scale(1);
+
+    }
+
+    .burger.active span::before{
+        width: 50%;
+        top: -4px;
+        left: 0;
+        transform: rotate(-45deg);
+    }
+    .burger.active span::after{
+        width: 50%;
+        top: 2px;
+        transform: rotate(45deg);
+    }
 }
