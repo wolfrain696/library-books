@@ -10,7 +10,7 @@ import {Author} from './Book/Author'
 
 export const Library = (props) => {
   const [data, setData] = useState(BookJSON)
-
+  const [sidebar, setSidebar] = useState(false)
   const [currentPage, setCurrentPage] = useState()
 
   const changePage = (page) => {
@@ -28,9 +28,14 @@ export const Library = (props) => {
       <header className={S.header}>
         <img src={bookImg} alt='label' />
         <h1 className={S.title}>Library</h1>
+        <button onClick={() => setSidebar(!sidebar)} className={sidebar?S.burger + ' ' + S.active: S.burger}>
+          <span></span>
+        </button>
       </header>
       <main className={S.body}>
-        <Favorites onData={changeData} />
+        <div className={sidebar?S.sidebar + ' ' + S.active: S.sidebar}>
+          <Favorites onData={changeData} />
+        </div>
         <div className={S.content}>
           <Search data={data} changePage={changePage} />
           {
