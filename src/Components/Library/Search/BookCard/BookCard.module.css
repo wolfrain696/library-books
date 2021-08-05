@@ -4,6 +4,10 @@
     width: 281px;
     height: 81px;
     border: 1px solid rgba(0, 0, 0, 0.26);
+
+}
+.card.active{
+    background-color: rgba(0, 0, 0, 0.26);
 }
 
 /*.round {
@@ -42,7 +46,6 @@
 
 .textBox {
     max-width: 193px;
-    background: white;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -75,4 +78,10 @@
 .buttonCard {
     float: right;
     width: 29px;
+}
+
+@media (min-width: 760px) {
+    .card:hover{
+        background-color: rgba(0, 0, 0, 0.26);
+    }
 }

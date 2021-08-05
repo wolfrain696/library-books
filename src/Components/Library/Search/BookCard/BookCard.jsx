@@ -5,12 +5,12 @@ import favoriteSearchImg from '../../../../img/favoritesearch.svg';
 import avatar from '../../../../img/avatar_author-lg.png';
 
 
-export const BookCard = ({title, img, name, authorPhoto, item, changePage}) => {
+export const BookCard = ({title, img, name, authorPhoto, item, changePage, page}) => {
 
   return (
-    <li className={S.card}>
+    <li className={page === item?S.card + " " + S.active: S.card}>
 
-      <div className={S.avatarBox}>
+      <div className={S.avatarBox} onClick={() => changePage(item)}>
         <img className={S.avatar}
                 src={`http://covers.openlibrary.org/${img ? 'b' : 'a'}/olid/${img ? img : authorPhoto}-M.jpg`}
                 alt='book card' />
