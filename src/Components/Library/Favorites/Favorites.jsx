@@ -1,6 +1,7 @@
 import S from './Favorites.module.css'
 import heartImg from '../../../img/heart.svg'
 import {AuthorsJSON} from '../../../Fetch/Authors'
+import {BookJSON} from '../../../Fetch/BookData'
 
 
 export const Favorites = ({onData}) => {
@@ -15,8 +16,8 @@ export const Favorites = ({onData}) => {
                     <li className={S.category__item} onClick={() => onData(AuthorsJSON)}>
                         Авторы
                     </li>
-                    <li className={S.category__item}>
-                        Детективы
+                    <li className={S.category__item} onClick={() => onData(BookJSON)}>
+                        Книги
                     </li>
                 </ul>
             </div>
