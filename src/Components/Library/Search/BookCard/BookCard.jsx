@@ -3,14 +3,18 @@ import {Button} from '../Button/Button';
 import S from '../BookCard/BookCard.module.css';
 import favoriteSearchImg from '../../../../img/favoritesearch.svg';
 import avatar from '../../../../img/avatar_author-lg.png';
+import {description} from '../../../../Fetch/description'
+import {Author} from '../../../../Fetch/Authors'
 
 
-export const BookCard = ({title, img, name, authorPhoto, item, changePage, page}) => {
+export const BookCard = ({title, img, name, authorPhoto, item, changePage, page,info}) => {
 
   return (
-    <li className={page === item?S.card + " " + S.active: S.card}>
+    <li className={page === item?S.card + " " + S.active: S.card}
+        onClick={() => changePage(item,item.type === 'work'? description[info]: Author[info])}
+    >
 
-      <div className={S.avatarBox} onClick={() => changePage(item)}>
+      <div className={S.avatarBox} >
         <img className={S.avatar}
                 src={`http://covers.openlibrary.org/${img ? 'b' : 'a'}/olid/${img ? img : authorPhoto}-M.jpg`}
                 alt='book card' />
@@ -31,7 +35,6 @@ export const BookCard = ({title, img, name, authorPhoto, item, changePage, page}
               alert('Добавим в избранное?')
             }}
           >
-            <img src={favoriteSearchImg} alt='filter' />
           </Button>
         </div>
       </div>

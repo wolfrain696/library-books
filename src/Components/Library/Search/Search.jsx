@@ -8,8 +8,8 @@ import filterImg from '../../../img/filter.svg';
 
 export const Search = ({data, changePage, page}) => {
 
-  const ShowList = data.docs.map(list =>
-    <BookCard page={page} changePage={changePage} item={list} authorPhoto={list.key} key={list.key} name={list.name} title={list.title} img={list.cover_edition_key}/>
+  const ShowList = data.docs.map((list, index) =>
+    <BookCard page={page} changePage={changePage} item={list} info={index} authorPhoto={list.key} key={list.key} name={list.name} title={list.title} img={list.cover_edition_key}/>
   )
 
     return (
