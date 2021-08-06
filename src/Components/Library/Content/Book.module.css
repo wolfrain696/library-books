@@ -16,7 +16,6 @@
 .p {
     max-height: 300px;
     overflow: scroll;
-    text-align: justify;
     font: 24px serif;
 }
 
