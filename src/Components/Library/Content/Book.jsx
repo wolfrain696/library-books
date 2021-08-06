@@ -3,12 +3,19 @@ import heartImg from '../../../img/heart.svg'
 import avatar from '../../../img/avatar_author-lg.png'
 
 
-export const Book = ({page,info}) => {
+export const Book = ({page,info, onFavorites,favorites}) => {
 
   if (!page) {
     return (
       <h1>Выбери книгу</h1>
     )
+  }
+  const addFavorites = () =>{
+    for(let i = 0; i < favorites.length; i++){
+        if(favorites[i].page.key === page.key && favorites[i].info.key === info.key ) return
+    }
+
+     onFavorites(page,info)
   }
 
   return (
@@ -32,7 +39,7 @@ export const Book = ({page,info}) => {
           <p>Дата публикации: {page.publish_date[0]}</p>
         </div>
       </div>
-      <button>
+      <button onClick={addFavorites}>
         <img src={heartImg} alt='like' className={S.like_book} />
       </button>
       <p className={S.p}> {info.description} </p>
