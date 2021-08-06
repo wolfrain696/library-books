@@ -8,9 +8,11 @@ import {Author} from '../../../../Fetch/Authors'
 
 
 export const BookCard = ({title, img, name, authorPhoto, item, changePage, page, info, favorites}) => {
+  const des = description.filter(el => el.key === item.key)
+  const author = Author.filter(el => el.name === item.name)
   return (
     <li className={page === item ? S.card + ' ' + S.active : S.card}
-        onClick={() => changePage(item, item.type === 'work' ? description[info] : Author[info])}
+        onClick={() => changePage(item, item.type === 'work' ? des[0] : author[0] )}
     >
 
       <div className={S.avatarBox}>
