@@ -13,18 +13,19 @@ export const Library = (props) => {
   const [sidebar, setSidebar] = useState(false)
   const [currentPage, setCurrentPage] = useState()
   const [des, setDes] = useState()
+  const [favorites,setFavorites] = useState([])
 
   const changePage = (page,info) => {
     setCurrentPage(page)
     setDes(info)
 
   }
-
   const changeData = (newData) => {
     setData(newData)
   }
-
-  console.log(des);
+  const onFavorites = (page, info) =>{
+    setFavorites( [...favorites,{page: {...page}, info: {...info}}])
+  }
 
   return (
     <div className={S.container}>
@@ -38,15 +39,15 @@ export const Library = (props) => {
       </header>
       <main className={S.body}>
         <div className={sidebar?S.sidebar + ' ' + S.active: S.sidebar}>
-          <Favorites onData={changeData} />
+          <Favorites favoritesList={favorites} onData={changeData} />
         </div>
         <div className={S.content}>
-          <Search page={currentPage} data={data} changePage={changePage} />
+          <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
           {
             currentPage && currentPage.type === 'work' ?
-              <Book page={currentPage} info={des} />
+              <Book favorites={favorites} onFavorites={onFavorites} page={currentPage} info={des} />
               :
-              <Author page={currentPage} info={des}/>
+              <Author favorites={favorites} onFavorites={onFavorites} page={currentPage} info={des}/>
           }
         </div>
       </main>
