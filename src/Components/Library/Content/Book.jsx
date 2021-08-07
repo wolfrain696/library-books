@@ -3,7 +3,7 @@ import heartImg from '../../../img/heart.svg'
 import avatar from '../../../img/avatar_author-lg.png'
 import favoriteActive from '../../../img/favoriteActive.svg'
 
-export const Book = ({page,info, onFavorites,favorites,removeFavorite}) => {
+export const Book = ({page, info, onFavorites, favorites, removeFavorite}) => {
 
   let favoriteStatus = favorites.filter(el => el.page.title === page.title).length === 1
 
@@ -12,21 +12,20 @@ export const Book = ({page,info, onFavorites,favorites,removeFavorite}) => {
       <h1>Выбери книгу</h1>
     )
   }
-  const addFavorites = () =>{
-    for(let i = 0; i < favorites.length; i++){
-        if(favorites[i].page.key === page.key && favorites[i].info.key === info.key ) return
+  const addFavorites = () => {
+    for (let i = 0; i < favorites.length; i ++) {
+      if (favorites[i].page.key === page.key && favorites[i].info.key === info.key) return
     }
-     onFavorites(page,info)
+    onFavorites(page, info)
   }
-  const remove = (key) =>{
+  const remove = (key) => {
     removeFavorite(key)
   }
-  console.log(favorites)
   return (
     <div className={S.description}>
       <div className={S.top}>
         <div className={S.avatar}>
-          {page.cover_i?
+          {page.cover_i ?
             <img
               src={`http://covers.openlibrary.org/b/id/${page.cover_i}-M.jpg`}
               alt='label' align='left'
@@ -37,18 +36,18 @@ export const Book = ({page,info, onFavorites,favorites,removeFavorite}) => {
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page.title }
+            {page.title}
           </h1>
           <p>Автор: {page.author_name}</p>
           <p>Дата публикации: {page.publish_date[0]}</p>
         </div>
       </div>
 
-      {favoriteStatus?
-        <button onClick={ () => removeFavorite(page.key)}>
+      {favoriteStatus ?
+        <button onClick={() => remove(page.key)}>
           <img src={favoriteActive} alt='like' className={S.like_book} />
         </button>
-      :
+        :
         <button onClick={addFavorites}>
           <img src={heartImg} alt='like' className={S.like_book} />
         </button>
