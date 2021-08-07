@@ -1,18 +1,20 @@
 import React from 'react'
 import {Button} from '../Button/Button'
 import S from '../BookCard/BookCard.module.css'
-import favoriteSearchImg from '../../../../img/favoritesearch.svg'
+import favoriteActive from '../../../../img/favoriteActive.svg'
 import avatar from '../../../../img/avatar_author-lg.png'
 import {description} from '../../../../Fetch/description'
 import {Author} from '../../../../Fetch/Authors'
 
 
-export const BookCard = ({title, img, name, authorPhoto, item, changePage, page, info, favorites}) => {
+export const BookCard = ({title, img, name, authorPhoto, item, changePage, page, favorites}) => {
+
+  let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
   const des = description.filter(el => el.key === item.key)
   const author = Author.filter(el => el.name === item.name)
   return (
     <li className={page === item ? S.card + ' ' + S.active : S.card}
-        onClick={() => changePage(item, item.type === 'work' ? des[0] : author[0] )}
+        onClick={() => changePage(item, item.type === 'work' ? des[0] : author[0])}
     >
 
       <div className={S.avatarBox}>
@@ -30,9 +32,9 @@ export const BookCard = ({title, img, name, authorPhoto, item, changePage, page,
           <div className={S.secondaryText}>
             {title}
           </div>
-          {/*<Button className={S.buttonCard}>*/}
-          {/*  <img src={favoriteSearchImg} alt='asd' />*/}
-          {/*</Button>*/}
+          {favoriteStatus && <Button className={S.buttonCard}>
+            <img src={favoriteActive} alt='asd' />
+          </Button>}
         </div>
       </div>
     </li>
