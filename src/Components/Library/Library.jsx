@@ -24,7 +24,10 @@ export const Library = (props) => {
     setData(newData)
   }
   const onFavorites = (page, info) =>{
-    setFavorites( [...favorites,{page: {...page}, info: {...info}}])
+    setFavorites( [{page: {...page}, info: {...info}},...favorites])
+  }
+  const removeFavorite = (key) =>{
+    setFavorites(favorites.filter(el => el.page.key !== key))
   }
 
   return (
@@ -45,9 +48,9 @@ export const Library = (props) => {
           <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
           {
             currentPage && currentPage.type === 'work' ?
-              <Book favorites={favorites} onFavorites={onFavorites} page={currentPage} info={des} />
+              <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage} info={des} />
               :
-              <Author favorites={favorites} onFavorites={onFavorites} page={currentPage} info={des}/>
+              <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage} info={des}/>
           }
         </div>
       </main>

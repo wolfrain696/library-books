@@ -41,7 +41,7 @@ export const Search = ({data, changePage, page}) => {
 
   function filterByTitle(collection) {
     return collection.filter(element => {
-      return element.title.toLowerCase().includes(val.toLowerCase())
+      return  element.title.toLowerCase().includes(val.toLowerCase())
     })
   }
 

@@ -1,9 +1,11 @@
 import S from './Book.module.css'
 import heartImg from '../../../img/heart.svg'
 import avatar from '../../../img/avatar_author-lg.png'
+import favoriteActive from '../../../img/favoriteActive.svg'
 
+export const Book = ({page,info, onFavorites,favorites,removeFavorite}) => {
 
-export const Book = ({page,info, onFavorites,favorites}) => {
+  let favoriteStatus = favorites.filter(el => el.page.title === page.title).length === 1
 
   if (!page) {
     return (
@@ -14,10 +16,12 @@ export const Book = ({page,info, onFavorites,favorites}) => {
     for(let i = 0; i < favorites.length; i++){
         if(favorites[i].page.key === page.key && favorites[i].info.key === info.key ) return
     }
-
      onFavorites(page,info)
   }
-
+  const remove = (key) =>{
+    removeFavorite(key)
+  }
+  console.log(favorites)
   return (
     <div className={S.description}>
       <div className={S.top}>
@@ -39,9 +43,16 @@ export const Book = ({page,info, onFavorites,favorites}) => {
           <p>Дата публикации: {page.publish_date[0]}</p>
         </div>
       </div>
-      <button onClick={addFavorites}>
-        <img src={heartImg} alt='like' className={S.like_book} />
-      </button>
+
+      {favoriteStatus?
+        <button onClick={ () => removeFavorite(page.key)}>
+          <img src={favoriteActive} alt='like' className={S.like_book} />
+        </button>
+      :
+        <button onClick={addFavorites}>
+          <img src={heartImg} alt='like' className={S.like_book} />
+        </button>
+      }
       <p className={S.p}> {info.description} </p>
     </div>
   )
