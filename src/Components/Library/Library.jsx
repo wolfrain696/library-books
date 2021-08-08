@@ -6,6 +6,7 @@ import {searchData} from '../../Fetch/SearchData'
 import S from './Library.module.css'
 import bookImg from '../../img/book.png'
 import {Author} from './Content/Author'
+import {Header} from './Header/Header'
 
 
 export const Library = (props) => {
@@ -14,12 +15,13 @@ export const Library = (props) => {
   const [currentPage, setCurrentPage] = useState()
   const [des, setDes] = useState()
   const [favorites, setFavorites] = useState([])
-
+  const [category, setCategory] = useState('books')
   const changePage = (page, info) => {
     setCurrentPage(page)
     setDes(info)
 
   }
+
   const changeData = (newData) => {
     setData(newData)
   }
@@ -28,21 +30,16 @@ export const Library = (props) => {
   }
   const removeFavorite = (key) => {
     setFavorites(favorites.filter(el => el.page.key !== key))
+    if (category === 'favorites') {
+      setData({docs: favorites.filter(el => el.page.key !== key).map(el => el.page)})
+    }
   }
-
   return (
     <div className={S.container}>
-      <header className={S.header}>
-        <img src={bookImg} alt='label' />
-        <h1 className={S.title}>Library</h1>
-
-        <button onClick={() => setSidebar(!sidebar)} className={sidebar ? S.burger + ' ' + S.active : S.burger}>
-          <span></span>
-        </button>
-      </header>
+      <Header onSidebar={setSidebar} sidebar={sidebar} />
       <main className={S.body}>
         <div className={sidebar ? S.sidebar + ' ' + S.active : S.sidebar}>
-          <Favorites favoritesList={favorites} onData={changeData} />
+          <Favorites category={category} onCategory={setCategory} favoritesList={favorites} onData={changeData} />
         </div>
         <div className={S.content}>
           <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />

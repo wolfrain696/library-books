@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from './Button/Button'
-import {BookCard} from './BookCard/BookCard'
+import {ListItem} from './ListItem/ListItem'
 import S from './Search.module.css'
 import searchImg from '../../../img/search.svg'
 import filterImg from '../../../img/filter.svg'
@@ -23,7 +23,7 @@ export const Search = ({data, changePage, page, favorites}) => {
       }
     })
     ShowList = filteredElements.map((element) =>
-      <BookCard page={page} favorites={favorites} changePage={changePage} item={element} authorPhoto={element.key}
+      <ListItem page={page} favorites={favorites} changePage={changePage} item={element} authorPhoto={element.key}
                 key={element.key}
                 name={element.name} title={element.title} img={element.cover_edition_key} />,
     )

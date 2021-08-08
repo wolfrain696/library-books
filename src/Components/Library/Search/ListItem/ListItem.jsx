@@ -1,13 +1,13 @@
 import React from 'react'
 import {Button} from '../Button/Button'
-import S from '../BookCard/BookCard.module.css'
+import S from './/BookCard.module.css'
 import favoriteActive from '../../../../img/favoriteActive.svg'
 import avatar from '../../../../img/avatar_author-lg.png'
 import {description} from '../../../../Fetch/description'
 import {Author} from '../../../../Fetch/Authors'
 
 
-export const BookCard = ({title, img, name, authorPhoto, item, changePage, page, favorites}) => {
+export const ListItem = ({title, img, name, authorPhoto, item, changePage, page, favorites}) => {
 
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
   const des = description.filter(el => el.key === item.key)

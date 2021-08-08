@@ -4,20 +4,24 @@ import {AuthorsJSON} from '../../../Fetch/Authors'
 import {searchData} from '../../../Fetch/SearchData'
 
 
-export const Favorites = ({onData,favoritesList}) => {
+export const Favorites = ({onData,favoritesList,onCategory,category}) => {
     const favorites = favoritesList?.map(el => el.page)
+    const selectCategory= (obj, key) =>{
+      onData(obj)
+      onCategory(key)
+    }
     return (
         <div className={S.container }>
-            <div className={S.favorites} onClick={() => onData({docs:favorites})} >
+            <div className={S.favorites} onClick={() => selectCategory({docs:favorites},'favorites') } >
                 <img src={heartImg} alt="favorites icon"/>
-                <span className={S.title}>Избранное</span>
+                <span  className={category === 'favorites' ? S.title + ' ' + S.active: S.title }>Избранное</span>
             </div>
             <div className={S.category}>
                 <ul className={S.category__list}>
-                    <li className={S.category__item} onClick={() => onData(AuthorsJSON)}>
+                    <li className={category === 'authors' ? S.category__item + ' ' + S.active:S.category__item} onClick={() => selectCategory(AuthorsJSON,'authors')}>
                         Авторы
                     </li>
-                    <li className={S.category__item} onClick={() => onData(searchData)}>
+                    <li className={category === 'books' ? S.category__item + ' ' + S.active:S.category__item} onClick={() => selectCategory(searchData,'books')}>
                         Книги
                     </li>
                 </ul>
