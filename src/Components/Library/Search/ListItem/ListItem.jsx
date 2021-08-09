@@ -12,6 +12,7 @@ export const ListItem = ({title, img, name, authorPhoto, item, changePage, page,
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
   const des = description.filter(el => el.key === item.key)
   const author = Author.filter(el => el.name === item.name)
+
   return (
     <li className={page === item ? S.card + ' ' + S.active : S.card}
         onClick={() => changePage(item, item.type === 'work' ? des[0] : author[0])}
