@@ -10,7 +10,7 @@ import {useState} from 'react'
 export const Search = ({data, changePage, page, favorites}) => {
 
   const [val, setVal] = useState('')
-
+  const [listFocus, setListFocus] = useState(false)
   let filteredElements = []
   let ShowList
 
@@ -56,6 +56,8 @@ export const Search = ({data, changePage, page, favorites}) => {
         <div className={S.search}>
           <img src={searchImg} alt='search' />
           <input
+            onFocus={() => setListFocus(true)}
+            onBlur={() => setListFocus(false)}
             placeholder='Поиск...'
             onChange={(event) => setVal(event.target.value)} />
           <Button
@@ -67,7 +69,7 @@ export const Search = ({data, changePage, page, favorites}) => {
           </Button>
         </div>
       </form>
-      <ul className={S.searchList}>
+      <ul className={listFocus ? S.searchList + ' ' + S.active : S.searchList}>
         {
           ShowList
         }
