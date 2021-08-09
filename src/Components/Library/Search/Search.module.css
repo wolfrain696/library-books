@@ -1,13 +1,14 @@
 .content {
-
+    position: relative;
+    flex: 0 0 20%
 }
 
 .search {
     display: flex;
     justify-content: center;
-    width: 281px;
     border: 1px solid rgba(0, 0, 0, 0.26);
     min-height: 49px;
+
 }
 
 input {
@@ -27,7 +28,21 @@ button {
     outline: none;
 }
 
-.searchList{
+.searchList {
+    width: 100%;
     overflow: scroll;
     max-height: 500px;
+}
+
+@media (max-width: 800px) {
+    .searchList {
+        height: 0;
+        position: absolute;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .searchList.active {
+        height: 150px;
+    }
 }

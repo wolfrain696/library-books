@@ -1,12 +1,12 @@
 .card {
     display: flex;
     align-items: center;
-    width: 281px;
     height: 81px;
     border: 1px solid rgba(0, 0, 0, 0.26);
 
 }
-.card.active{
+
+.card.active {
     background-color: rgba(0, 0, 0, 0.26);
 }
 
@@ -81,7 +81,14 @@
 }
 
 @media (min-width: 760px) {
-    .card:hover{
+    .card:hover {
         background-color: rgba(0, 0, 0, 0.26);
+    }
+}
+
+@media (max-width: 760px) {
+    .card {
+        height: 50px;
+
     }
 }

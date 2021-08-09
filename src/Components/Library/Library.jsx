@@ -65,10 +65,9 @@ export const Library = (props) => {
   return (
     <div className={S.container}>
       <Header onSidebar={setSidebar} sidebar={sidebar} />
-      <main className={S.body}>
-        <div className={sidebar ? S.sidebar + ' ' + S.active : S.sidebar}>
-          <Favorites category={category} onCategory={setCategory} favoritesList={favorites} setFavorites={setFavorites}
-                     onData={changeData} />
+      <main onClick={() => setSidebar(false)} className={S.body}>
+        <div onClick={e => e.stopPropagation()} className={sidebar ? S.sidebar + ' ' + S.active : S.sidebar}>
+          <Favorites category={category} onCategory={setCategory} favoritesList={favorites} onData={changeData} />
         </div>
         <div className={S.content}>
           <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />

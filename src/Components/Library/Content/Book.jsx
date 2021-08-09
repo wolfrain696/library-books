@@ -1,4 +1,4 @@
-import S from './Book.module.css'
+import S from './Content.module.css'
 import heartImg from '../../../img/heart.svg'
 import avatar from '../../../img/avatar_author-lg.png'
 import favoriteActive from '../../../img/favoriteActive.svg'
@@ -13,9 +13,6 @@ export const Book = ({page, info, onFavorites, favorites, removeFavorite}) => {
     )
   }
   const addFavorites = () => {
-    for (let i = 0; i < favorites.length; i ++) {
-      if (favorites[i].page.key === page.key && favorites[i].info.key === info.key) return
-    }
     onFavorites(page, info)
   }
   const remove = (key) => {

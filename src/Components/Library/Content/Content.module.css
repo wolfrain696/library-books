@@ -1,0 +1,62 @@
+.book {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.description {
+    padding: 10px;
+}
+
+.h1 {
+    font: 30px serif;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.p {
+    max-height: 200px;
+    overflow: scroll;
+    font: 24px serif;
+}
+
+.like_book {
+    margin-left: 2%;
+    max-width: 25px;
+    margin-bottom: 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-around;
+}
+
+.content p {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.avatar {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .h1 {
+        font-size: 24px;
+    }
+
+    .top {
+        flex-direction: column;
+    }
+
+    .avatar {
+        width: 100%;
+    }
+
+    .content p {
+        font-size: 15px;
+    }
+
+    .p {
+        font-size: 18px;
+    }
+}
