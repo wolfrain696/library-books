@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from '../Button/Button'
-import S from './/BookCard.module.css'
+import S from './BookCard.module.css'
 import favoriteActive from '../../../../img/favoriteActive.svg'
 import avatar from '../../../../img/avatar_author-lg.png'
 import {description} from '../../../../Fetch/description'
