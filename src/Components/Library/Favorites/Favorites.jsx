@@ -10,6 +10,9 @@ export const Favorites = ({onData, favoritesList, onCategory, category}) => {
     onData(obj)
     onCategory(key)
   }
+
+
+
   return (
     <div className={S.container}>
       <div className={S.favorites} onClick={() => selectCategory({docs: favorites}, 'favorites')}>
