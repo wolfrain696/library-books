@@ -1,4 +1,3 @@
-import React from 'react'
 import {Button} from './Button/Button'
 import {ListItem} from './ListItem/ListItem'
 import S from './Search.module.css'
