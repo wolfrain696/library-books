@@ -31,18 +31,9 @@ button {
 .searchList {
     width: 100%;
     overflow: scroll;
-    max-height: 500px;
+    max-height: 100%;
 }
 
 @media (max-width: 800px) {
-    .searchList {
-        height: 0;
-        position: absolute;
-        background-color: white;
-        transition: all 0.3s ease;
-    }
 
-    .searchList.active {
-        height: 150px;
-    }
 }
