@@ -2,8 +2,9 @@ import S from './Content.module.css'
 import avatar from '../../../img/avatar_author-lg.png'
 import heartImg from '../../../img/heart.svg'
 import favoriteActive from '../../../img/favoriteActive.svg'
+import {ExitButton} from './ExitButoon/ExitButton'
 
-export const Author = ({page, info, favorites, onFavorites, removeFavorite}) => {
+export const Author = ({page, info, favorites, onFavorites, removeFavorite, changePage}) => {
 
   let favoriteStatus = favorites.filter(el => el.page.name === page.name).length === 1
 
@@ -16,8 +17,19 @@ export const Author = ({page, info, favorites, onFavorites, removeFavorite}) => 
   const addFavorites = () => {
     onFavorites(page, info)
   }
+  const windowWidth = () =>{
+    let w = window.innerWidth
+    window.onresize = () => {
+      w = window.innerWidth
+    }
+
+    return w
+  }
   return (
     <div className={S.description}>
+      {windowWidth() < 760 && <div>
+        <ExitButton changePage={changePage} />
+      </div>}
       <div className={S.top}>
         <div className={S.avatar}>
           {info.photos ?

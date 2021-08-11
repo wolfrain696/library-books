@@ -13,7 +13,7 @@ export const Library = (props) => {
   let elementDescription
   const [data, setData] = useState(searchData)
   const [sidebar, setSidebar] = useState(false)
-  const [currentPage, setCurrentPage] = useState()
+  const [currentPage, setCurrentPage] = useState([])
   const [des, setDes] = useState()
   const [favorites, setFavorites] = useState([])
   const [category, setCategory] = useState('books')
@@ -42,11 +42,11 @@ export const Library = (props) => {
     if (currentPage.type === 'work') {
       elementDescription =
         <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-              info={des} />
+              info={des} changePage={changePage} />
     } else if (currentPage.type === 'author') {
       elementDescription =
         <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={des} />
+                info={des} changePage={changePage} />
     }
   }
 
@@ -61,7 +61,6 @@ export const Library = (props) => {
     localStorage.setItem('favorit', JSON.stringify(favorites))
   })
 
-
   return (
     <div className={S.container}>
       <Header onSidebar={setSidebar} sidebar={sidebar} />
@@ -70,7 +69,11 @@ export const Library = (props) => {
           <Favorites category={category} onCategory={setCategory} favoritesList={favorites} onData={changeData} />
         </div>
         <div className={S.content}>
-          <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+          {window.innerWidth >= 761 && <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} /> }
+          {currentPage.length === 0 && window.innerWidth <= 760 ?
+            <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+            : null
+            }
           {
             elementDescription
           }

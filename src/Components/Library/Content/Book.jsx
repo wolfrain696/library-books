@@ -2,8 +2,9 @@ import S from './Content.module.css'
 import heartImg from '../../../img/heart.svg'
 import avatar from '../../../img/avatar_author-lg.png'
 import favoriteActive from '../../../img/favoriteActive.svg'
+import {ExitButton} from './ExitButoon/ExitButton'
 
-export const Book = ({page, info, onFavorites, favorites, removeFavorite}) => {
+export const Book = ({page, info, onFavorites, favorites, removeFavorite, changePage}) => {
 
   let favoriteStatus = favorites.filter(el => el.page.title === page.title).length === 1
 
@@ -18,8 +19,19 @@ export const Book = ({page, info, onFavorites, favorites, removeFavorite}) => {
   const remove = (key) => {
     removeFavorite(key)
   }
+  const windowWidth = () =>{
+    let w = window.innerWidth
+    window.onresize = () => {
+      w = window.innerWidth
+    }
+
+    return w
+  }
   return (
     <div className={S.description}>
+      { windowWidth() < 760 && <div>
+        <ExitButton changePage={changePage}/>
+      </div>}
       <div className={S.top}>
         <div className={S.avatar}>
           {page.cover_i ?

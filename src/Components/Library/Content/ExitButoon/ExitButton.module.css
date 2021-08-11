@@ -1,0 +1,9 @@
+.exit{
+    width: 30px;
+    height: 30px;
+}
+
+.exit img{
+    width: 100%;
+    display: block;
+}
