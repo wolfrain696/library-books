@@ -1,7 +1,7 @@
 import {Favorites} from './Favorites/Favorites'
 import {Search} from './Search/Search'
 import {Book} from './Content/Book'
-import {useState} from 'react'
+import {FC, useState} from 'react'
 import {searchData} from '../../Fetch/SearchData'
 import S from './Library.module.css'
 import {Author} from './Content/Author'
@@ -9,36 +9,37 @@ import {Header} from './Header/Header'
 import {useEffect} from 'react'
 
 
-export const Library = (props) => {
+export const Library : FC = () => {
   let elementDescription
-  const [data, setData] = useState(searchData)
+  const [data, setData] = useState<{}>(searchData)
   const [sidebar, setSidebar] = useState(false)
-  const [currentPage, setCurrentPage] = useState([])
-  const [des, setDes] = useState()
-  const [favorites, setFavorites] = useState([])
+  const [currentPage, setCurrentPage] = useState<any>({})
+  const [des, setDes] = useState([])
+  const [favorites, setFavorites] = useState<any[]>([])
   const [category, setCategory] = useState('books')
-  const changePage = (page, info) => {
+  const changePage = (page: [], info: []) => {
     setCurrentPage(page)
     setDes(info)
   }
 
-  const changeData = (newData) => {
+  const changeData = (newData: {}) => {
     setData(newData)
   }
 
-  const onFavorites = (page, info) => {
+  const onFavorites = (page : {}, info : {}) => {
     setFavorites([{page: {...page}, info: {...info}}, ...favorites])
   }
 
-  const removeFavorite = (key) => {
-    setFavorites(favorites.filter(el => el.page.key !== key))
-    if (category === 'favorites') {
-      setData({docs: favorites.filter(el => el.page.key !== key).map(el => el.page)})
+  const removeFavorite = (key : string) => {
+      setFavorites(favorites.filter(el => el.page.key  !== key))
+      if (category === 'favorites') {
+        setData({docs: favorites.filter(el => el.page.key !== key).map(el => el.page)})
+      }
     }
-  }
 
 
-  if (currentPage && currentPage.type !== 'undefiend') {
+
+  if (currentPage && currentPage.type !== 'undefined') {
     if (currentPage.type === 'work') {
       elementDescription =
         <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
@@ -51,14 +52,14 @@ export const Library = (props) => {
   }
 
   useEffect(() => {
-    const data = localStorage.getItem('favorit')
+    const data = localStorage.getItem('favorite')
     if (data) {
       setFavorites(JSON.parse(data))
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('favorit', JSON.stringify(favorites))
+    localStorage.setItem('favorite', JSON.stringify(favorites))
   })
 
   return (
