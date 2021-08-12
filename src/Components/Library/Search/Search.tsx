@@ -3,12 +3,13 @@ import S from './Search.module.css'
 import searchImg from '../../../img/search.svg'
 import filterImg from '../../../img/filter.svg'
 import {FC, ReactNode, useState} from 'react'
+import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 interface searchProps {
   data: any,
-  changePage: any,
-  page: any,
-  favorites: any[],
+  changePage: (page : PageType, info?: DescriptionTypes) => void,
+  page: PageType | undefined,
+  favorites: FavoritesType[],
   children?: ReactNode
 }
 
@@ -19,7 +20,7 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
   let ShowList
 
   if (isCollectionNotEmpty(data)) {
-    data.docs.forEach(element => {
+    data.docs.forEach((element : any) => {
       if (isBook(element) && filterByTitle(element)) {
         filteredElements.push(element)
       } else if (isAuthor(element) && filterByAuthorName(element)) {
@@ -33,23 +34,23 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
     )
   }
 
-  function isCollectionNotEmpty(collection: {docs: any}) {
+  function isCollectionNotEmpty(collection: {docs: []}) {
     return collection.docs.length !== 0
   }
 
-  function isBook(element) {
+  function isBook(element: any) {
     return element.type === 'work'
   }
 
-  function isAuthor(element) {
+  function isAuthor(element: any) {
     return element.type === 'author'
   }
 
-  function filterByTitle(element) {
+  function filterByTitle(element : any) {
     return element.title.toLowerCase().includes(val.toLowerCase())
   }
 
-  function filterByAuthorName(element) {
+  function filterByAuthorName(element : any) {
     return element.name.toLowerCase().includes(val.toLowerCase())
   }
 

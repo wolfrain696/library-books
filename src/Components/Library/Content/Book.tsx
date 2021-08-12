@@ -4,24 +4,31 @@ import avatar from '../../../img/avatar_author-lg.png'
 import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
+import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 interface BookProps {
-  page: any,
-  info: any,
-  favorites: any,
+  page: PageType,
+  info: DescriptionTypes | undefined,
+  favorites: FavoritesType[],
   onFavorites: Function,
-  removeFavorite: any,
+  removeFavorite: (key: string) => void,
   changePage: any
 }
 
-export const Book: FC<BookProps> = ({page, info, onFavorites, favorites, removeFavorite, changePage}) => {
+export const Book: FC<BookProps> = ({
+                                      page,
+                                      info,
+                                      onFavorites, favorites,
+                                      removeFavorite,
+                                      changePage,
+                                    }) => {
 
   let favoriteStatus: boolean = favorites.filter(el => el.page.title === page.title).length === 1
 
   const addFavorites = () => {
     onFavorites(page, info)
   }
-  const remove = (key) => {
+  const remove = (key: string) => {
     removeFavorite(key)
   }
   const windowWidth = () => {
@@ -66,7 +73,7 @@ export const Book: FC<BookProps> = ({page, info, onFavorites, favorites, removeF
           <img src={heartImg} alt='like' className={S.like_book} />
         </button>
       }
-      <p className={S.p}> {info.description} </p>
+      <p className={S.p}> {info?.description} </p>
     </div>
   )
 }

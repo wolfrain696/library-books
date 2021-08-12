@@ -3,21 +3,21 @@ import heartImg from '../../../img/heart.svg'
 import {AuthorsJSON} from '../../../Fetch/Authors'
 import {searchData} from '../../../Fetch/SearchData'
 import {FC} from 'react'
+import {FavoritesType} from '../../../Types/Types'
 
 interface FavoritesProps {
-  onData: any,
-  favoritesList: any,
+  onData: (obj: {}) => void,
+  favoritesList: FavoritesType[],
   onCategory: any,
   category: any
 }
 
 export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory, category}) => {
-  const favorites: any = favoritesList?.map(el => el.page)
-  const selectCategory = (obj, key) => {
+  const favorites = favoritesList?.map(el => el.page)
+  const selectCategory = (obj : {}, key: string) => {
     onData(obj)
     onCategory(key)
   }
-
 
 
   return (

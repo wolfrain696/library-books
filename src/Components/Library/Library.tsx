@@ -7,7 +7,9 @@ import S from './Library.module.css'
 import {Author} from './Content/Author'
 import {Header} from './Header/Header'
 import {useEffect} from 'react'
-import {DescriptionTypes, PageType} from '../../Types/Types'
+import {DescriptionTypes, FavoritesType, PageType} from '../../Types/Types'
+
+
 
 
 
@@ -17,9 +19,10 @@ import {DescriptionTypes, PageType} from '../../Types/Types'
   const [sidebar, setSidebar] = useState(false)
   const [currentPage, setCurrentPage] = useState<PageType>()
   const [des, setDes] = useState<DescriptionTypes>()
-  const [favorites, setFavorites] = useState<any[]>([])
+  const [favorites, setFavorites] = useState<FavoritesType[]>([])
   const [category, setCategory] = useState('books')
-  const changePage = (page: PageType, info: DescriptionTypes) => {
+
+  const changePage = (page: PageType, info?: DescriptionTypes) => {
   setCurrentPage(page)
   setDes(info)
 }
@@ -28,8 +31,8 @@ const changeData = (newData: {}) => {
   setData(newData)
 }
 
-const onFavorites = (page: {}, info: {}) => {
-  setFavorites([{page: {...page}, info: {...info}}, ...favorites])
+const onFavorites = (page: PageType, info: DescriptionTypes) => {
+      setFavorites([{page: {...page}, info: {...info}},...favorites])
 }
 
 const removeFavorite = (key: string) => {

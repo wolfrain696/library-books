@@ -4,28 +4,29 @@ import favoriteActive from '../../../../img/favoriteActive.svg'
 import avatar from '../../../../img/avatar_author-lg.png'
 import {description} from '../../../../Fetch/description'
 import {Author} from '../../../../Fetch/Authors'
+import {DescriptionTypes, FavoritesType, PageType} from '../../../../Types/Types'
 
-interface ListProps{
+interface ListProps {
   title: string,
   img: string,
   name: string,
   authorPhoto: string,
   item: any,
-  changePage: Function,
-  page: {},
-  favorites: any[],
+  changePage: (page: PageType, info?: DescriptionTypes) => void,
+  page: PageType | undefined,
+  favorites: FavoritesType[],
   children?: ReactNode
 }
 
-export const ListItem:FC<ListProps> = ({title, img, name, authorPhoto, item, changePage, page, favorites}) => {
+export const ListItem: FC<ListProps> = ({title, img, name, authorPhoto, item, changePage, page, favorites}) => {
 
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
-  const des = description.filter(el => el.key === item.key)
-  const author = Author.filter(el => el.name === item.name)
+  const des: DescriptionTypes = description.filter(el => el.key === item.key)[0]
+  const author: DescriptionTypes = Author?.filter(el => el.name === item.name)[0]
 
   return (
     <li className={page === item ? S.card + ' ' + S.active : S.card}
-        onClick={() => changePage(item, item.type === 'work' ? des[0] : author[0])}
+        onClick={() => changePage(item, item.type === 'work' ? des : author)}
     >
 
       <div className={S.avatarBox}>
