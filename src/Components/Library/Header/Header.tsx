@@ -1,8 +1,13 @@
 import S from './Header.module.css'
 import bookImg from '../../../img/book.png'
+import {Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction} from 'react'
 
-
-export const Header = ({sidebar,onSidebar}) => {
+interface PropsType  {
+  sidebar: boolean,
+  onSidebar: Dispatch<SetStateAction<boolean>>,
+  children?: ReactNode,
+}
+export const Header : FC<PropsType> = ({sidebar,onSidebar})=> {
   return (
     <header className={S.header}>
       <img src={bookImg} alt='label' />

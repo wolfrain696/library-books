@@ -1,15 +1,21 @@
-import {Button} from './Button/Button'
 import {ListItem} from './ListItem/ListItem'
 import S from './Search.module.css'
 import searchImg from '../../../img/search.svg'
 import filterImg from '../../../img/filter.svg'
-import {useState} from 'react'
+import {FC, ReactNode, useState} from 'react'
 
+interface searchProps {
+  data: any,
+  changePage: any,
+  page: any,
+  favorites: any[],
+  children?: ReactNode
+}
 
-export const Search = ({data, changePage, page, favorites}) => {
+export const Search : FC<searchProps> = ({data, changePage, page, favorites}) => {
 
   const [val, setVal] = useState('')
-  let filteredElements = []
+  let filteredElements: any[] = []
   let ShowList
 
   if (isCollectionNotEmpty(data)) {
@@ -27,7 +33,7 @@ export const Search = ({data, changePage, page, favorites}) => {
     )
   }
 
-  function isCollectionNotEmpty(collection) {
+  function isCollectionNotEmpty(collection: {docs: any}) {
     return collection.docs.length !== 0
   }
 
@@ -56,13 +62,13 @@ export const Search = ({data, changePage, page, favorites}) => {
           <input
             placeholder='Поиск...'
             onChange={(event) => setVal(event.target.value)} />
-          <Button
+          <button
             onClick={() => {
               alert('Отфильтруем книги?')
             }}
           >
             <img src={filterImg} alt='filter' />
-          </Button>
+          </button>
         </div>
       </form>
       <ul className={S.searchList}>
