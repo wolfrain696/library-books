@@ -1,23 +1,30 @@
 import S from './Content.module.css'
-import avatar from '../../../img/avatar_author-lg.png'
 import heartImg from '../../../img/heart.svg'
+import avatar from '../../../img/avatar_author-lg.png'
 import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
+import {FC} from 'react'
 
-export const Author = ({page, info, favorites, onFavorites, removeFavorite, changePage}) => {
+interface BookProps {
+  page: any,
+  info: any,
+  favorites: any,
+  onFavorites: Function,
+  removeFavorite: any,
+  changePage: any
+}
 
-  let favoriteStatus = favorites.filter(el => el.page.name === page.name).length === 1
+export const Book: FC<BookProps> = ({page, info, onFavorites, favorites, removeFavorite, changePage}) => {
 
-  if (!page) {
-    return (
-      <h1>Выбери автора</h1>
-    )
-  }
+  let favoriteStatus: boolean = favorites.filter(el => el.page.title === page.title).length === 1
 
   const addFavorites = () => {
     onFavorites(page, info)
   }
-  const windowWidth = () =>{
+  const remove = (key) => {
+    removeFavorite(key)
+  }
+  const windowWidth = () => {
     let w = window.innerWidth
     window.onresize = () => {
       w = window.innerWidth
@@ -32,10 +39,10 @@ export const Author = ({page, info, favorites, onFavorites, removeFavorite, chan
       </div>}
       <div className={S.top}>
         <div className={S.avatar}>
-          {info.photos ?
+          {page.cover_i ?
             <img
-              src={`http://covers.openlibrary.org/b/id/${info.photos[0]}-M.jpg`}
-              alt='label' align='left'
+              src={`http://covers.openlibrary.org/b/id/${page.cover_i}-M.jpg`}
+              alt='label'
               className={S.book} />
             :
             <img src={avatar} alt='автор' />
@@ -43,14 +50,15 @@ export const Author = ({page, info, favorites, onFavorites, removeFavorite, chan
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page.name}
+            {page.title}
           </h1>
-          <p>Дата рождения: {info.birth_date}</p>
-          <p>Лучшая работа: {page.top_work} </p>
+          <p>Автор: {page.author_name}</p>
+          <p>Дата публикации: {page.publish_date[0]}</p>
         </div>
       </div>
+
       {favoriteStatus ?
-        <button onClick={() => removeFavorite(page.key)}>
+        <button onClick={() => remove(page.key)}>
           <img src={favoriteActive} alt='like' className={S.like_book} />
         </button>
         :
@@ -58,7 +66,8 @@ export const Author = ({page, info, favorites, onFavorites, removeFavorite, chan
           <img src={heartImg} alt='like' className={S.like_book} />
         </button>
       }
-      <p className={S.p}>{info.bio.value} </p>
+      <p className={S.p}> {info.description} </p>
     </div>
   )
 }
+
