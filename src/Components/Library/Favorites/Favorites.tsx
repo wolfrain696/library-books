@@ -2,10 +2,17 @@ import S from './Favorites.module.css'
 import heartImg from '../../../img/heart.svg'
 import {AuthorsJSON} from '../../../Fetch/Authors'
 import {searchData} from '../../../Fetch/SearchData'
+import {FC} from 'react'
 
+interface FavoritesProps {
+  onData: any,
+  favoritesList: any,
+  onCategory: any,
+  category: any
+}
 
-export const Favorites = ({onData, favoritesList, onCategory, category}) => {
-  const favorites = favoritesList?.map(el => el.page)
+export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory, category}) => {
+  const favorites: any = favoritesList?.map(el => el.page)
   const selectCategory = (obj, key) => {
     onData(obj)
     onCategory(key)
