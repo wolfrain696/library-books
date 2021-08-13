@@ -7,6 +7,6 @@ interface ExitButtonProps {
 }
 
 export const ExitButton: FC<ExitButtonProps> = ({changePage}) => {
-  return <button className={S.exit} onClick={() => changePage([], [])}><img src={exitIcon} alt='exit' /></button>
+  return <button className={S.exit} onClick={() => changePage({}, {})}><img src={exitIcon} alt='exit' /></button>
 }
 
