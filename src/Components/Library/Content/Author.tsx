@@ -9,7 +9,7 @@ import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 interface AuthorProps{
   page: PageType,
-  info: DescriptionTypes,
+  info: DescriptionTypes | undefined,
   favorites: FavoritesType[],
   onFavorites: Function,
   removeFavorite: any,
@@ -40,7 +40,7 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
       </div>}
       <div className={S.top}>
         <div className={S.avatar}>
-          {info.photos ?
+          {info?.photos ?
             <img
               src={`http://covers.openlibrary.org/b/id/${info.photos[0]}-M.jpg`}
               alt='label'
@@ -53,7 +53,7 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
           <h1 className={S.h1}>
             {page.name}
           </h1>
-          <p>Дата рождения: {info.birth_date}</p>
+          <p>Дата рождения: {info?.birth_date}</p>
           <p>Лучшая работа: {page.top_work} </p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
           <img src={heartImg} alt='like' className={S.like_book} />
         </button>
       }
-      <p className={S.p}>{info.bio?.value} </p>
+      <p className={S.p}>{info?.bio?.value} </p>
     </div>
   )
 }
