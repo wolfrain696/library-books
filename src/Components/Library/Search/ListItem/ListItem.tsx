@@ -22,6 +22,8 @@ export const ListItem: FC<ListProps> = ({title, img, name, authorPhoto, item, ch
 
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
   const des: DescriptionTypes = description.filter(el => el.key === item.key)[0]
+  //todo ?. не нужен, Author всегда определён. Но массив после фильтрации может оказаться пустым
+  // так что author должен быть  DescriptionTypes | undefined
   const author: DescriptionTypes = Author?.filter(el => el.name === item.name)[0]
 
   return (

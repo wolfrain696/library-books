@@ -4,7 +4,9 @@ import {Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction} from 'react'
 
 interface PropsType  {
   sidebar: boolean,
+    //todo: лучше уж просто (open: boolean) => void
   onSidebar: Dispatch<SetStateAction<boolean>>,
+    //todo FC сам добавит children, здесь они не нужны
   children?: ReactNode,
 }
 export const Header : FC<PropsType> = ({sidebar,onSidebar})=> {
