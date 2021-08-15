@@ -10,6 +10,7 @@ interface BookProps {
   page: PageType,
   info: DescriptionTypes | undefined,
   favorites: FavoritesType[],
+    //todo нужен более конкретный тип
   onFavorites: Function,
   removeFavorite: (key: string) => void,
   changePage: any

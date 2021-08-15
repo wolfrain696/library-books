@@ -13,6 +13,7 @@ class FavoritesStore{
     removeFavorites(key : string) {
       this.favorites = this.favorites.filter(el => el.page.key !== key)
     }
+    //todo это лучше делать в конструкторе сразу, вместе с загрузкой из localStorage
     addFavoritesFromLocal(data: FavoritesType[]){
 
        this.favorites = [...data]

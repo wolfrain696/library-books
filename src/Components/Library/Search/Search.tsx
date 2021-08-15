@@ -6,6 +6,7 @@ import {FC, ReactNode, useState} from 'react'
 import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 interface searchProps {
+  //todo тип
   data: any,
   changePage: (page : PageType, info?: DescriptionTypes) => void,
   page: PageType | undefined,
@@ -19,6 +20,7 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
   let filteredElements: any[] = []
   let ShowList
 
+  //todo эта проверка вообще не нужна, можно потом проверять ShowList на отсутствие элементов
   if (isCollectionNotEmpty(data)) {
     data.docs.forEach((element : any) => {
       if (isBook(element) && filterByTitle(element)) {
@@ -34,10 +36,12 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
     )
   }
 
+  //todo [] - это тип пустого массива, его тоже лучше не использовать
   function isCollectionNotEmpty(collection: {docs: []}) {
     return collection.docs.length !== 0
   }
 
+  //todo и все эти функции лучше вынести за пределы компонента, раз они чистые
   function isBook(element: any) {
     return element.type === 'work'
   }
@@ -65,6 +69,7 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
             onChange={(event) => setVal(event.target.value)} />
           <button
             onClick={() => {
+              //todo ???
               alert('Отфильтруем книги?')
             }}
           >
