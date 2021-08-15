@@ -68,7 +68,7 @@ export const Library: FC = observer(() => {
     })
 
     return (
-      <div className={S.container}>
+      <div className={S.container}>    <div>df</div>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>
           <div onClick={e => e.stopPropagation()} className={sidebar ? S.sidebar + ' ' + S.active : S.sidebar}>
