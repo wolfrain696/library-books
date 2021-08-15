@@ -2,14 +2,15 @@ import S from './Header.module.css'
 import bookImg from '../../../img/book.png'
 import {Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction} from 'react'
 
-interface PropsType  {
+interface PropsType {
   sidebar: boolean,
-    //todo: лучше уж просто (open: boolean) => void
+  //todo: лучше уж просто (open: boolean) => void
   onSidebar: Dispatch<SetStateAction<boolean>>,
-    //todo FC сам добавит children, здесь они не нужны
+  //todo FC сам добавит children, здесь они не нужны
   children?: ReactNode,
 }
-export const Header : FC<PropsType> = ({sidebar,onSidebar})=> {
+
+export const Header: FC<PropsType> = ({sidebar, onSidebar}) => {
   return (
     <header className={S.header}>
       <img src={bookImg} alt='label' />
