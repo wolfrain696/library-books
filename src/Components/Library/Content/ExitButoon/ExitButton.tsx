@@ -3,6 +3,7 @@ import S from './ExitButton.module.css'
 import {FC} from 'react'
 
 interface ExitButtonProps {
+  //todo тип улучшить
   changePage: any
 }
 

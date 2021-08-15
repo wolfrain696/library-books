@@ -11,6 +11,7 @@ interface AuthorProps{
   page: PageType,
   info: DescriptionTypes | undefined,
   favorites: FavoritesType[],
+  //todo нужен более конкретный тип
   onFavorites: Function,
   removeFavorite: any,
   changePage: any
@@ -27,6 +28,8 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
   }
   const windowWidth = () =>{
     let w = window.innerWidth
+    //todo зачем здесь? он ничего не изменит, если не использовать state или mobx
+    //в идеале надо вынести это в стор
     window.onresize = () => {
       w = window.innerWidth
     }
