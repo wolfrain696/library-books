@@ -8,13 +8,13 @@ import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 interface searchProps {
   //todo тип
   data: any,
-  changePage: (page : PageType, info?: DescriptionTypes) => void,
+  changePage: (page: PageType, info?: DescriptionTypes) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
   children?: ReactNode
 }
 
-export const Search : FC<searchProps> = ({data, changePage, page, favorites}) => {
+export const Search: FC<searchProps> = ({data, changePage, page, favorites}) => {
 
   const [val, setVal] = useState('')
   let filteredElements: any[] = []
@@ -22,7 +22,7 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
 
   //todo эта проверка вообще не нужна, можно потом проверять ShowList на отсутствие элементов
   if (isCollectionNotEmpty(data)) {
-    data.docs.forEach((element : any) => {
+    data.docs.forEach((element: any) => {
       if (isBook(element) && filterByTitle(element)) {
         filteredElements.push(element)
       } else if (isAuthor(element) && filterByAuthorName(element)) {
@@ -50,11 +50,11 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
     return element.type === 'author'
   }
 
-  function filterByTitle(element : any) {
+  function filterByTitle(element: any) {
     return element.title.toLowerCase().includes(val.toLowerCase())
   }
 
-  function filterByAuthorName(element : any) {
+  function filterByAuthorName(element: any) {
     return element.name.toLowerCase().includes(val.toLowerCase())
   }
 
@@ -67,14 +67,6 @@ export const Search : FC<searchProps> = ({data, changePage, page, favorites}) =>
           <input
             placeholder='Поиск...'
             onChange={(event) => setVal(event.target.value)} />
-          <button
-            onClick={() => {
-              //todo ???
-              alert('Отфильтруем книги?')
-            }}
-          >
-            <img src={filterImg} alt='filter' />
-          </button>
         </div>
       </form>
       <ul className={S.searchList}>

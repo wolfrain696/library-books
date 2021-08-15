@@ -10,7 +10,7 @@ interface BookProps {
   page: PageType,
   info: DescriptionTypes | undefined,
   favorites: FavoritesType[],
-    //todo нужен более конкретный тип
+  //todo нужен более конкретный тип
   onFavorites: Function,
   removeFavorite: (key: string) => void,
   changePage: any
@@ -62,18 +62,18 @@ export const Book: FC<BookProps> = ({
           </h1>
           <p>Автор: {page.author_name}</p>
           <p>Дата публикации: {page.publish_date[0]}</p>
+          {favoriteStatus ?
+            <button onClick={() => remove(page.key)}>
+              <img src={favoriteActive} alt='like' className={S.like_book} />
+            </button>
+            :
+            <button onClick={addFavorites}>
+              <img src={heartImg} alt='like' className={S.like_book} />
+            </button>
+          }
         </div>
-      </div>
 
-      {favoriteStatus ?
-        <button onClick={() => remove(page.key)}>
-          <img src={favoriteActive} alt='like' className={S.like_book} />
-        </button>
-        :
-        <button onClick={addFavorites}>
-          <img src={heartImg} alt='like' className={S.like_book} />
-        </button>
-      }
+      </div>
       <p className={S.p}> {info?.description} </p>
     </div>
   )

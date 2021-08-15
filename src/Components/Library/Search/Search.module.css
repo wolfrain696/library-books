@@ -1,20 +1,18 @@
 .content {
+    height: 100%;
     position: relative;
-    flex: 0 0 20%
+    flex: 0 0 20%;
+    border: 1px solid rgba(0, 0, 0, 0.26);
+    border-top-left-radius: 8px;
 }
 
 .search {
     display: flex;
     justify-content: center;
-    border: 1px solid rgba(0, 0, 0, 0.26);
     min-height: 49px;
-
 }
 
 input {
-    border: none;
-    outline: none;
-    -webkit-appearance: none;
     width: 195px;
     font-size: 24px;
 }
@@ -30,7 +28,7 @@ button {
 
 .searchList {
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 100%;
 }
 
