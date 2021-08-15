@@ -15,7 +15,6 @@ import {observer} from 'mobx-react-lite'
 export const Library: FC = observer(() => {
     let elementDescription
     const favorites = FavoritesStore.favorites
-    //todo {} не надо использовать как тип, он означает "вообще любой объект со свойствами", тот же any по сути
     const [data, setData] = useState<{}>(searchData)
     const [sidebar, setSidebar] = useState(false)
     const [currentPage, setCurrentPage] = useState<PageType>()
@@ -28,7 +27,6 @@ export const Library: FC = observer(() => {
       setDes(info)
     }
 
-    //todo и здесь тоже {}
     const changeData = (newData: {}) => {
       setData(newData)
     }
@@ -70,7 +68,7 @@ export const Library: FC = observer(() => {
     })
 
     return (
-      <div className={S.container}>    <div>df</div>
+      <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>
           <div onClick={e => e.stopPropagation()} className={sidebar ? S.sidebar + ' ' + S.active : S.sidebar}>
