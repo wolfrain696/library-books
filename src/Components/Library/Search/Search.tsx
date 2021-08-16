@@ -1,9 +1,14 @@
 import {ListItem} from './ListItem/ListItem'
 import S from './Search.module.css'
 import searchImg from '../../../img/search.svg'
-import filterImg from '../../../img/filter.svg'
 import {FC, ReactNode, useState} from 'react'
 import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
+import {
+  isBook,
+  isAuthor,
+  filterByTitle,
+  filterByAuthorName,
+} from './FunctionSearch'
 
 interface searchProps {
   //todo тип
@@ -20,43 +25,20 @@ export const Search: FC<searchProps> = ({data, changePage, page, favorites}) => 
   let filteredElements: any[] = []
   let ShowList
 
-  //todo эта проверка вообще не нужна, можно потом проверять ShowList на отсутствие элементов
-  if (isCollectionNotEmpty(data)) {
-    data.docs.forEach((element: any) => {
-      if (isBook(element) && filterByTitle(element)) {
+
+  data.docs.forEach((element: any) => {
+      if (isBook(element) && filterByTitle(element, val)) {
         filteredElements.push(element)
-      } else if (isAuthor(element) && filterByAuthorName(element)) {
+      } else if (isAuthor(element) && filterByAuthorName(element, val)) {
         filteredElements.push(element)
       }
-    })
-    ShowList = filteredElements.map((element) =>
-      <ListItem page={page} favorites={favorites} changePage={changePage} item={element} authorPhoto={element.key}
-                key={element.key}
-                name={element.name} title={element.title} img={element.cover_edition_key} />,
-    )
-  }
-
-  //todo [] - это тип пустого массива, его тоже лучше не использовать
-  function isCollectionNotEmpty(collection: {docs: []}) {
-    return collection.docs.length !== 0
-  }
-
-  //todo и все эти функции лучше вынести за пределы компонента, раз они чистые
-  function isBook(element: any) {
-    return element.type === 'work'
-  }
-
-  function isAuthor(element: any) {
-    return element.type === 'author'
-  }
-
-  function filterByTitle(element: any) {
-    return element.title.toLowerCase().includes(val.toLowerCase())
-  }
-
-  function filterByAuthorName(element: any) {
-    return element.name.toLowerCase().includes(val.toLowerCase())
-  }
+    },
+  )
+  ShowList = filteredElements.map((element) =>
+    <ListItem page={page} favorites={favorites} changePage={changePage} item={element} authorPhoto={element.key}
+              key={element.key}
+              name={element.name} title={element.title} img={element.cover_edition_key} />,
+  )
 
 
   return (
@@ -77,5 +59,4 @@ export const Search: FC<searchProps> = ({data, changePage, page, favorites}) => 
     </div>
   )
 }
-
 
