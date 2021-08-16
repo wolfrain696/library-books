@@ -22,7 +22,7 @@ export const Library: FC = observer(() => {
 
     const [category, setCategory] = useState('books')
 
-    const changePage = (page: PageType, info?: DescriptionTypes) => {
+    const changePage = (page?: PageType, info?: DescriptionTypes) => {
       setCurrentPage(page)
       setDes(info)
     }
@@ -43,7 +43,7 @@ export const Library: FC = observer(() => {
     }
 
 
-    if (currentPage && currentPage.type !== 'undefined') {
+    if (currentPage && currentPage.type !== 'undefined'&& des ) {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}

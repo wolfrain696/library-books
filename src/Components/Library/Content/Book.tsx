@@ -8,12 +8,11 @@ import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 interface BookProps {
   page: PageType,
-  info: DescriptionTypes | undefined,
+  info: DescriptionTypes,
   favorites: FavoritesType[],
-  //todo нужен более конкретный тип
-  onFavorites: Function,
+  onFavorites: (page: PageType, info: DescriptionTypes) => void,
   removeFavorite: (key: string) => void,
-  changePage: any
+  changePage: (page: PageType | undefined, info: DescriptionTypes | undefined) => void
 }
 
 export const Book: FC<BookProps> = ({

@@ -9,17 +9,16 @@ import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 interface AuthorProps {
   page: PageType,
-  info: DescriptionTypes | undefined,
+  info: DescriptionTypes,
   favorites: FavoritesType[],
-  //todo нужен более конкретный тип
-  onFavorites: Function,
-  removeFavorite: any,
-  changePage: any
+onFavorites: (page: PageType, info:DescriptionTypes) => void,
+  removeFavorite: (key: string) => void,
+  changePage: (page: PageType | undefined, info: DescriptionTypes | undefined) => void
 }
 
 export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, removeFavorite, changePage}) => {
 
-  let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page.name).length === 1
+  let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1
 
 
   const addFavorites = () => {
@@ -53,12 +52,12 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page.name}
+            {page?.name}
           </h1>
           <p>Дата рождения: {info?.birth_date}</p>
-          <p>Лучшая работа: {page.top_work} </p>
+          <p>Лучшая работа: {page?.top_work} </p>
           {favoriteStatus ?
-            <button onClick={() => removeFavorite(page.key)}>
+            <button onClick={() => removeFavorite(page?.key)}>
               <img src={favoriteActive} alt='like' className={S.like_book} />
             </button>
             :
