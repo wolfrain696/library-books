@@ -4,13 +4,14 @@ import {AuthorsJSON} from '../../../Fetch/Authors'
 import {searchData} from '../../../Fetch/SearchData'
 import {FC} from 'react'
 import {FavoritesType} from '../../../Types/Types'
+import classNames from 'classnames'
 
 //todo типы улучшать надо, никаких any и {}
 interface FavoritesProps {
   onData: (obj: {}) => void,
   favoritesList: FavoritesType[],
-  onCategory: any,
-  category: any
+  onCategory: (category: string) => void,
+  category: string
 }
 
 export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory, category}) => {
@@ -19,25 +20,19 @@ export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory
     onData(obj)
     onCategory(key)
   }
-
-  //TODO используй classnames, Люк!
-  //вместо category === 'authors' ? S.category__item + ' ' + S.active : S.category__item
-  //будет classnames(S.category__item, [category === 'authors' && S.active])
-  //ещё category и category__list классы не существуют
-
   return (
     <div className={S.container}>
       <div className={S.favorites} onClick={() => selectCategory({docs: favorites}, 'favorites')}>
         <img src={heartImg} alt='favorites icon' />
-        <span className={category === 'favorites' ? S.title + ' ' + S.active : S.title}>Избранное</span>
+        <span className={classNames(S.title, [category === 'favorites' && S.active])}>Избранное</span>
       </div>
-      <div className={S.category}>
+      <div className={ S.category}>
         <ul className={S.category__list}>
-          <li className={category === 'authors' ? S.category__item + ' ' + S.active : S.category__item}
+          <li className={classNames(S.category__item, [category === 'authors' && S.active])}
               onClick={() => selectCategory(AuthorsJSON, 'authors')}>
             Авторы
           </li>
-          <li className={category === 'books' ? S.category__item + ' ' + S.active : S.category__item}
+          <li className={classNames(S.category__item, [category === 'books' && S.active])}
               onClick={() => selectCategory(searchData, 'books')}>
             Книги
           </li>
