@@ -7,7 +7,7 @@ import {FC} from 'react'
 import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
 
 
-interface AuthorProps{
+interface AuthorProps {
   page: PageType,
   info: DescriptionTypes,
   favorites: FavoritesType[],
@@ -21,11 +21,10 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1
 
 
-
   const addFavorites = () => {
     onFavorites(page, info)
   }
-  const windowWidth = () =>{
+  const windowWidth = () => {
     let w = window.innerWidth
     //todo зачем здесь? он ничего не изменит, если не использовать state или mobx
     //в идеале надо вынести это в стор
@@ -57,17 +56,17 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
           </h1>
           <p>Дата рождения: {info?.birth_date}</p>
           <p>Лучшая работа: {page?.top_work} </p>
+          {favoriteStatus ?
+            <button onClick={() => removeFavorite(page?.key)}>
+              <img src={favoriteActive} alt='like' className={S.like_book} />
+            </button>
+            :
+            <button onClick={addFavorites}>
+              <img src={heartImg} alt='like' className={S.like_book} />
+            </button>
+          }
         </div>
       </div>
-      {favoriteStatus ?
-        <button onClick={() => removeFavorite(page?.key)}>
-          <img src={favoriteActive} alt='like' className={S.like_book} />
-        </button>
-        :
-        <button onClick={addFavorites}>
-          <img src={heartImg} alt='like' className={S.like_book} />
-        </button>
-      }
       <p className={S.p}>{info?.bio?.value} </p>
     </div>
   )
