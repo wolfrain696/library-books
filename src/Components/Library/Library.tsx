@@ -7,7 +7,7 @@ import S from './Library.module.css'
 import {Author} from './Content/Author'
 import {Header} from './Header/Header'
 import {useEffect} from 'react'
-import {DescriptionTypes, FavoritesType, PageType} from '../../Types/Types'
+import {DescriptionTypes, PageType} from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
 import {observer} from 'mobx-react-lite'
 
@@ -54,14 +54,6 @@ export const Library: FC = observer(() => {
                   info={des} changePage={changePage} />
       }
     }
-    console.log(favorites.length)
-    useEffect(() => {
-      const data = localStorage.getItem('favorite')
-      if (data && JSON.parse(data).length != 0) {
-        FavoritesStore.addFavoritesFromLocal(JSON.parse(data))
-        console.log(JSON.parse(data))
-      }
-    }, [])
 
     useEffect(() => {
       localStorage.setItem('favorite', JSON.stringify(favorites))

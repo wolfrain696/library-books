@@ -16,7 +16,6 @@ interface searchProps {
   changePage: (page: PageType, info?: DescriptionTypes) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
-  children?: ReactNode
 }
 
 export const Search: FC<searchProps> = ({data, changePage, page, favorites}) => {
