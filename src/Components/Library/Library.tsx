@@ -9,21 +9,22 @@ import {Header} from './Header/Header'
 import {DescriptionTypes, PageType} from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
 import {observer} from 'mobx-react-lite'
+import classNames from 'classnames'
+import DescriptionStore from '../../store/DescriptionStore'
 
 
 export const Library: FC = observer(() => {
     let elementDescription
     const favorites = FavoritesStore.favorites
+    const currentPage = DescriptionStore.currentPage
+    const descripton = DescriptionStore.description
     const [data, setData] = useState<{}>(searchData)
     const [sidebar, setSidebar] = useState(false)
-    const [currentPage, setCurrentPage] = useState<PageType>()
-    const [des, setDes] = useState<DescriptionTypes>()
-
     const [category, setCategory] = useState('books')
 
-    const changePage = (page?: PageType, info?: DescriptionTypes) => {
-      setCurrentPage(page)
-      setDes(info)
+    const changePage = (page: PageType | undefined, info: DescriptionTypes | undefined) => {
+      DescriptionStore.setCurrentPage(page)
+      DescriptionStore.setDescroption(info)
     }
 
     const changeData = (newData: {}) => {
@@ -42,22 +43,22 @@ export const Library: FC = observer(() => {
     }
 
 
-    if (currentPage && currentPage.type !== 'undefined'&& des ) {
+    if (currentPage && currentPage.type !== 'undefined'&& descripton ) {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={des} changePage={changePage} />
+                info={descripton} changePage={changePage} />
       } else if (currentPage.type === 'author') {
         elementDescription =
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                  info={des} changePage={changePage} />
+                  info={descripton} changePage={changePage} />
       }
     }
     return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>
-          <div onClick={e => e.stopPropagation()} className={sidebar ? S.sidebar + ' ' + S.active : S.sidebar}>
+          <div onClick={e => e.stopPropagation()} className={classNames(S.sidebar, [sidebar && S.active])}>
             <Favorites category={category} onCategory={setCategory} favoritesList={favorites} onData={changeData} />
           </div>
           <div className={S.content}>

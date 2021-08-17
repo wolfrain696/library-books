@@ -2,7 +2,7 @@ export type PageType = {
   key: string,
   cover_i: number,
   title?: string,
-  author_key: string,
+  author_key?: string,
   name?: string
   type?: string
   top_work?: string

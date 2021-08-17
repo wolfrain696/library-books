@@ -11,7 +11,7 @@ interface AuthorProps {
   page: PageType,
   info: DescriptionTypes,
   favorites: FavoritesType[],
-onFavorites: (page: PageType, info:DescriptionTypes) => void,
+  onFavorites: (page: PageType, info:DescriptionTypes) => void,
   removeFavorite: (key: string) => void,
   changePage: (page: PageType | undefined, info: DescriptionTypes | undefined) => void
 }
