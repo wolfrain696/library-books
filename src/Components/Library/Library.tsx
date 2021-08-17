@@ -6,7 +6,6 @@ import {searchData} from '../../Fetch/SearchData'
 import S from './Library.module.css'
 import {Author} from './Content/Author'
 import {Header} from './Header/Header'
-import {useEffect} from 'react'
 import {DescriptionTypes, PageType} from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
 import {observer} from 'mobx-react-lite'
@@ -43,7 +42,7 @@ export const Library: FC = observer(() => {
     }
 
 
-    if (currentPage && currentPage.type !== 'undefined' && des) {
+    if (currentPage && currentPage.type !== 'undefined'&& des ) {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
