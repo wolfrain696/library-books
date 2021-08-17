@@ -25,7 +25,7 @@ export const Search: FC<searchProps> = ({data, changePage, page, favorites}) => 
   let ShowList
 
 
-  data.docs.forEach((element: any) => {
+  data.docs.forEach((element: PageType) => {
       if (isBook(element) && filterByTitle(element, val)) {
         filteredElements.push(element)
       } else if (isAuthor(element) && filterByAuthorName(element, val)) {
