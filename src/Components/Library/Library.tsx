@@ -43,7 +43,7 @@ export const Library: FC = observer(() => {
     }
 
 
-    if (currentPage && currentPage.type !== 'undefined'&& des ) {
+    if (currentPage && currentPage.type !== 'undefined' && des) {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
@@ -54,11 +54,6 @@ export const Library: FC = observer(() => {
                   info={des} changePage={changePage} />
       }
     }
-
-    useEffect(() => {
-      localStorage.setItem('favorite', JSON.stringify(favorites))
-    })
-
     return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
