@@ -12,12 +12,23 @@ interface ListProps {
   name: string,
   authorPhoto: string,
   item: PageType,
-  changePage: (page: PageType, info?: DescriptionTypes) => void,
+  changePage: (page: PageType, key: string) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
+  url: string
 }
 
-export const ListItem: FC<ListProps> = ({title, img, name, authorPhoto, item, changePage, page, favorites}) => {
+export const ListItem: FC<ListProps> = ({
+                                          title,
+                                          img,
+                                          name,
+                                          authorPhoto,
+                                          item,
+                                          changePage,
+                                          page,
+                                          favorites,
+                                          url,
+                                        }) => {
 
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
   const des: DescriptionTypes = description.filter(el => el.key === item.key)[0]
@@ -27,7 +38,7 @@ export const ListItem: FC<ListProps> = ({title, img, name, authorPhoto, item, ch
 
   return (
     <li className={page === item ? S.card + ' ' + S.active : S.card}
-        onClick={() => changePage(item, item.type === 'work' ? des : author)}
+        onClick={() => changePage(item, url)}
     >
 
       <div className={S.avatarBox}>

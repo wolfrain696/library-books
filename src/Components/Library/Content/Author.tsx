@@ -11,9 +11,9 @@ interface AuthorProps {
   page: PageType,
   info: DescriptionTypes,
   favorites: FavoritesType[],
-  onFavorites: (page: PageType, info:DescriptionTypes) => void,
+  onFavorites: (page: PageType, info: DescriptionTypes) => void,
   removeFavorite: (key: string) => void,
-  changePage: (page: PageType | undefined, info: DescriptionTypes | undefined) => void
+  changePage: (page: PageType | undefined, key: string) => void
 }
 
 export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, removeFavorite, changePage}) => {
