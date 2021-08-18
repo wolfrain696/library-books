@@ -5,6 +5,7 @@ import {searchData} from '../../../Fetch/SearchData'
 import {FC} from 'react'
 import {FavoritesType} from '../../../Types/Types'
 import classNames from 'classnames'
+import FavoritesStore from '../../../store/FavoritesStore'
 
 //todo типы улучшать надо, никаких any и {}
 interface FavoritesProps {
@@ -17,6 +18,7 @@ interface FavoritesProps {
 export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory, category}) => {
   const favorites = favoritesList?.map(el => el.page)
   const selectCategory = (obj : {}, key: string) => {
+
     onData(obj)
     onCategory(key)
   }

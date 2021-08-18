@@ -10,7 +10,7 @@ export type PageType = {
   publish_date: string[]
 }
 export interface DescriptionTypes {
-  description?: string | {},
+  description?: string | {type: string, value: string} | undefined,
   title?:string,
   key?:string,
   covers?: Array<number>,

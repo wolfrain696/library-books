@@ -12,7 +12,7 @@ interface BookProps {
   favorites: FavoritesType[],
   onFavorites: (page: PageType, info: DescriptionTypes) => void,
   removeFavorite: (key: string) => void,
-  changePage: (page: PageType | undefined, info: DescriptionTypes | undefined) => void
+  changePage: (page: PageType | undefined, key: string) => void
 }
 
 export const Book: FC<BookProps> = ({
@@ -38,6 +38,16 @@ export const Book: FC<BookProps> = ({
     }
 
     return w
+  }
+  let description = info.description
+  let text
+
+  if (typeof description != 'undefined') {
+    if (typeof description === 'string') {
+      text = description
+    } else {
+      text = description.value
+    }
   }
   return (
     <div className={S.description}>
@@ -73,7 +83,7 @@ export const Book: FC<BookProps> = ({
         </div>
 
       </div>
-      <p className={S.p}> {info?.description} </p>
+      <p className={S.p}> {text} </p>
     </div>
   )
 }
