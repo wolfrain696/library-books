@@ -3,18 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "src/index.tsx",
   "homepage": "https://wolfrain696.github.io/library-books/",
   "dependencies": {
-    "classnames": "2.3.1",
-    "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-scripts": "4.0.0"
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
+    "@types/axios": "^0.14.0",
+    "@types/node": "^16.4.14",
+    "@types/react": "^17.0.17",
+    "@types/react-dom": "^17.0.9",
+    "axios": "^0.21.1",
+    "classnames": "^2.3.1",
+    "mobx": "^6.3.2",
+    "mobx-react": "^7.2.0",
+    "mobx-react-lite": "^3.2.0",
     "prettier": "^2.3.2",
-    "typescript": "4.1.3"
+    "react": "^17.0.2",
+    "typescript": "^4.1.3"
   },
   "scripts": {
     "start": "react-scripts start",

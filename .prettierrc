@@ -7,5 +7,6 @@
   "trailingComma": "all",
   "bracketSpacing": false,
   "jsxBracketSameLine": true,
-  "fluid": false
+  "fluid": false,
+  "parser": "flow"
 }

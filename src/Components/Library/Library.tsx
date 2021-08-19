@@ -1,0 +1,80 @@
+import {Favorites} from './Favorites/Favorites'
+import {Search} from './Search/Search'
+import {Book} from './Content/Book'
+import {FC, useState} from 'react'
+import S from './Library.module.css'
+import {Author} from './Content/Author'
+import {Header} from './Header/Header'
+import {DescriptionTypes, PageType} from '../../Types/Types'
+import FavoritesStore from '../../store/FavoritesStore'
+import {observer} from 'mobx-react-lite'
+import classNames from 'classnames'
+import DescriptionStore from '../../store/DescriptionStore'
+import {toJS} from 'mobx'
+
+
+export const Library: FC = observer(() => {
+    let elementDescription
+    const favorites = FavoritesStore.favorites
+    const currentPage = DescriptionStore.currentPage
+    const descripton = toJS(DescriptionStore.description)
+    const data = toJS(DescriptionStore.searchData?.docs)
+
+    const [sidebar, setSidebar] = useState(false)
+    const [category, setCategory] = useState('books')
+    console.log(descripton)
+    const changePage = (page: PageType | undefined, key: string) => {
+      DescriptionStore.setCurrentPage(page)
+      DescriptionStore.setDescription(key)
+    }
+
+    const changeData = (newData: {}) => {
+          DescriptionStore.changeDataList(newData)
+    }
+
+    const onFavorites = (page: PageType, info: DescriptionTypes) => {
+      FavoritesStore.addFavorite(page, info)
+    }
+
+    const removeFavorite = (key: string) => {
+      FavoritesStore.removeFavorites(key)
+      if (category === 'favorites') {
+        // setData({docs: favorites.filter(el => el.page.key !== key).map(el => el.page)})
+      }
+    }
+
+
+    if (currentPage && currentPage.type !== 'undefined' && descripton) {
+      if (currentPage.type === 'work') {
+        elementDescription =
+          <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
+                info={descripton} changePage={changePage} />
+      } else if (currentPage.type === 'author') {
+        elementDescription =
+          <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
+                  info={descripton} changePage={changePage} />
+      }
+    }
+    return (
+      <div className={S.container}>
+        <Header onSidebar={setSidebar} sidebar={sidebar} />
+        <main onClick={() => setSidebar(false)} className={S.body}>
+          <div onClick={e => e.stopPropagation()} className={classNames(S.sidebar, [sidebar && S.active])}>
+            <Favorites category={category} onCategory={setCategory} favoritesList={favorites} onData={changeData} />
+          </div>
+          <div className={S.content}>
+            {window.innerWidth >= 761 &&
+            <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
+            {currentPage?.type === undefined && window.innerWidth <= 760 ?
+              <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+              : null
+            }
+            {
+              elementDescription
+            }
+          </div>
+        </main>
+      </div>
+    )
+  },
+)
