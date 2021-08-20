@@ -5,7 +5,7 @@ import {FC, useState} from 'react'
 import S from './Library.module.css'
 import {Author} from './Content/Author'
 import {Header} from './Header/Header'
-import {DescriptionTypes, PageType} from '../../Types/Types'
+import {BooksData, DescriptionTypes, PageType} from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
 import {observer} from 'mobx-react-lite'
 import classNames from 'classnames'
@@ -17,19 +17,32 @@ export const Library: FC = observer(() => {
     let elementDescription
     const favorites = FavoritesStore.favorites
     const currentPage = DescriptionStore.currentPage
-    const descripton = toJS(DescriptionStore.description)
-    const data = toJS(DescriptionStore.searchData?.docs)
-
+    const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
     const [category, setCategory] = useState('books')
-    console.log(descripton)
+
+    let data
+    switch (category) {
+      case 'books': {
+        data = DescriptionStore.searchData
+        break
+      }
+      case 'favorites': {
+        data = favorites.map(el => el.page)
+        break
+      }
+      default : {
+        data = DescriptionStore.searchData
+      }
+    }
+
     const changePage = (page: PageType | undefined, key: string) => {
       DescriptionStore.setCurrentPage(page)
       DescriptionStore.setDescription(key)
     }
-
-    const changeData = (newData: {}) => {
-          DescriptionStore.changeDataList(newData)
+    console.log(toJS(data))
+    const changeData = (newData: BooksData[] | PageType[]) => {
+      DescriptionStore.changeDataList(newData)
     }
 
     const onFavorites = (page: PageType, info: DescriptionTypes) => {
@@ -38,21 +51,18 @@ export const Library: FC = observer(() => {
 
     const removeFavorite = (key: string) => {
       FavoritesStore.removeFavorites(key)
-      if (category === 'favorites') {
-        // setData({docs: favorites.filter(el => el.page.key !== key).map(el => el.page)})
-      }
     }
 
 
-    if (currentPage && currentPage.type !== 'undefined' && descripton) {
+    if (currentPage && currentPage.type !== 'undefined' && description) {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={descripton} changePage={changePage} />
+                info={description} changePage={changePage} />
       } else if (currentPage.type === 'author') {
         elementDescription =
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                  info={descripton} changePage={changePage} />
+                  info={description} changePage={changePage} />
       }
     }
     return (

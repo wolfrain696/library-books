@@ -21,3 +21,13 @@ export interface DescriptionTypes {
 }
 
 export type FavoritesType = {page: PageType, info: DescriptionTypes}
+
+export type BooksData = {
+  key: string,
+  cover_i: number,
+  title: string,
+  author_key: string,
+  type: string,
+  author_name:string,
+  publish_date: string[]
+}

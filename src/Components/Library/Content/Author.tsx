@@ -16,7 +16,14 @@ interface AuthorProps {
   changePage: (page: PageType | undefined, key: string) => void
 }
 
-export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, removeFavorite, changePage}) => {
+export const Author: FC<AuthorProps> = ({
+                                          page,
+                                          info,
+                                          favorites,
+                                          onFavorites,
+                                          removeFavorite,
+                                          changePage,
+                                        }) => {
 
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1
 

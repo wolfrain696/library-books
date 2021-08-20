@@ -29,7 +29,24 @@ button {
 .searchList {
     width: 100%;
     overflow-y: scroll;
-    max-height: 100%;
+    max-height: 500px;
+}
+.load{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px blue dashed;
+    margin: 10px auto;
+
+    animation: loading 2s infinite;
+}
+@keyframes loading {
+    0%{
+        transform: rotate(0) scale(1);
+    }
+    100%{
+        transform: rotate(360deg) scale(1.5);
+    }
 }
 
 @media (max-width: 800px) {

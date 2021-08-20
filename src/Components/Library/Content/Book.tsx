@@ -83,7 +83,11 @@ export const Book: FC<BookProps> = ({
         </div>
 
       </div>
-      <p className={S.p}> {text} </p>
+      {
+        description &&
+        <p className={S.p}> {text} </p>
+      }
+
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import {makeAutoObservable} from 'mobx'
 import {DescriptionTypes, FavoritesType, PageType} from '../Types/Types'
-import {useEffect} from 'react'
 
 
 class FavoritesStore {
