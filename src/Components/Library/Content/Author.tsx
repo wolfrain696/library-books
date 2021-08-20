@@ -14,6 +14,7 @@ interface AuthorProps {
   onFavorites: (page: PageType, info: DescriptionTypes) => void,
   removeFavorite: (key: string) => void,
   changePage: (page: PageType | undefined, key: string) => void
+  // onCategory: (category: string) => void,
 }
 
 export const Author: FC<AuthorProps> = ({
@@ -23,6 +24,7 @@ export const Author: FC<AuthorProps> = ({
                                           onFavorites,
                                           removeFavorite,
                                           changePage,
+                                          // onCategory,
                                         }) => {
 
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1

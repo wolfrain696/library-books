@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx'
 import {BooksData, DescriptionTypes, FavoritesType, PageType} from '../Types/Types'
-import {DescriptionData, SearchFetch} from '../Fetch/SearchFetch'
+import {DescriptionData, SearchFetch, SearchFetchAuthor} from '../Fetch/SearchFetch'
 import FavoritesStore from './FavoritesStore'
 
 
@@ -12,6 +12,7 @@ class DescriptionStore {
   loading: boolean = false
   countPage: number = 1
   fetching: boolean = false
+  searchAuthot: PageType[] = []
 
   constructor() {
     makeAutoObservable(this)
@@ -27,6 +28,7 @@ class DescriptionStore {
 
   changeDataList(data: BooksData[] | PageType[]) {
     this.searchData = data
+    this.searchAuthot = data
   }
 
   addData() {
@@ -44,6 +46,28 @@ class DescriptionStore {
       this.loading = true
       SearchFetch(this.searchValue, this.countPage)
         .then(response => this.searchData = [...this.searchData, ...response.docs])
+        .then(() => this.loading = false)
+        .then(() => this.fetching = false)
+    }
+  }
+
+  addAuthors() {
+    if (this.searchValue != '')
+      this.loading = true
+    SearchFetchAuthor(this.searchValue, 1)
+      .then(response => this.searchAuthot = [...response.docs])
+      .then(() => this.loading = false)
+      .then(() => this.countPage = 1)
+
+    console.log(this.searchAuthot.length)
+  }
+
+  lazyDataAuthors() {
+    if (this.searchAuthot.length > 0) {
+      this.countPage += 1
+      this.loading = true
+      SearchFetchAuthor(this.searchValue, this.countPage)
+        .then(respon => this.searchAuthot = [...this.searchAuthot, ...respon.docs])
         .then(() => this.loading = false)
         .then(() => this.fetching = false)
     }
