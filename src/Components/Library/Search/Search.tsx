@@ -11,6 +11,7 @@ import {
 } from './FunctionSearch'
 import DescriptionStore from '../../../store/DescriptionStore'
 import {observer} from 'mobx-react-lite'
+import {toJS} from 'mobx'
 
 interface searchProps {
   //todo тип
@@ -33,10 +34,10 @@ export const Search: FC<searchProps> = observer(({
     let filteredElements: any[] = []
     let ShowList
     const searchValue = DescriptionStore.searchValue
-     const loading = DescriptionStore.loading
+    const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
 
-    // data.docs.forEach((element: PageType) => {
+    // data.forEach((element: PageType) => {
     //     if (isBook(element) && filterByTitle(element, val)) {
     //       filteredElements.push(element)
     //     } else if (isAuthor(element) && filterByAuthorName(element, val)) {
@@ -44,25 +45,64 @@ export const Search: FC<searchProps> = observer(({
     //     }
     //   },
     // )
+
     ShowList = data?.map((element: any) =>
       <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
                 authorPhoto={element.key}
                 key={element.key} url={element.key}
                 name={element.name} title={element.title} img={element.cover_edition_key} />,
     )
+
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
       let text = e.target.value
+      setVal(text)
       DescriptionStore.changeSearchValue(text)
-    }
-    const Search = (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        DescriptionStore.addData()
+      if (category === 'favorites') {
+        console.log(text)
+
+        // toJS(favorites).forEach((element: any) => {
+        //     // console.log('ssss')
+        //     // console.log(element)
+        //     if (isBook(element) && filterByTitle(element, val)) {
+        //       // console.log('book')
+        //       filteredElements.push(element)
+        //     } else if (isAuthor(element) && filterByAuthorName(element, val)) {
+        //       filteredElements.push(element)
+        //       // console.log('avtor')
+        //     }
+        //     ShowList = filteredElements.map((element: any) =>
+        //     <ListItem page={page} favorites={favorites} changePage={changePage} item={element} authorPhoto={element.key}
+        //               key={element.key} url={element.key}
+        //               name={element.name} title={element.title} img={element.cover_edition_key} />,
+        //   )
+        //   },
+        //
+        // )
       }
     }
 
+    const Search = (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        if (category === 'books') {
+          DescriptionStore.addData()
+        } else if (category === 'authors') {
+          console.log('hi')
+          DescriptionStore.addAuthors()
+        }
+      }
+    }
+
+
     useEffect(() => {
       if (fetching)
+
+        console.log(fetching)
+      if (category === 'books') {
         DescriptionStore.lazyData()
+      } else if (category === 'authors') {
+        DescriptionStore.lazyDataAuthors()
+        // console.log('dd')
+      }
 
     }, [fetching])
 

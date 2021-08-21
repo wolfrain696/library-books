@@ -29,10 +29,12 @@ export const Library: FC = observer(() => {
       }
       case 'favorites': {
         data = favorites.map(el => el.page)
+        // console.log(toJS(favorites))
+        // console.log(toJS(data))
         break
       }
       default : {
-        data = DescriptionStore.searchData
+        data = DescriptionStore.searchAuthot
       }
     }
 
@@ -40,6 +42,7 @@ export const Library: FC = observer(() => {
       DescriptionStore.setCurrentPage(page)
       DescriptionStore.setDescription(key)
     }
+
 
     const changeData = (newData: BooksData[] | PageType[]) => {
       DescriptionStore.changeDataList(newData)
@@ -58,7 +61,7 @@ export const Library: FC = observer(() => {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={description} changePage={changePage} />
+                info={description} changePage={changePage}  />
       } else if (currentPage.type === 'author') {
         elementDescription =
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
