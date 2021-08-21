@@ -84,8 +84,10 @@ export const Book: FC<BookProps> = ({
 
       </div>
       {
-        description &&
+        description ?
         <p className={S.p}> {text} </p>
+          :
+          <h2>Описание отсутствует =(</h2>
       }
 
     </div>

@@ -23,6 +23,7 @@
 }
 
 .p {
+    white-space: pre-wrap;
     padding: 5px;
     flex: 1 1 50%;
     max-height: 200px;
