@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx'
+import {makeAutoObservable, runInAction} from 'mobx'
 import {BooksData, DescriptionTypes, FavoritesType, PageType} from '../Types/Types'
 import {DescriptionData, SearchFetch, SearchFetchAuthor} from '../Fetch/SearchFetch'
 import FavoritesStore from './FavoritesStore'
@@ -23,7 +23,7 @@ class DescriptionStore {
   }
 
   setDescription(key: string) {
-    DescriptionData(key).then(response => this.description = {...response})
+    DescriptionData(key).then(response => runInAction(() => this.description = {...response}))
   }
 
   changeDataList(data: BooksData[] | PageType[]) {
@@ -35,9 +35,9 @@ class DescriptionStore {
     if (this.searchValue != '')
       this.loading = true
     SearchFetch(this.searchValue, 1)
-      .then(response => this.searchData = [...response.docs])
-      .then(() => this.loading = false)
-      .then(() => this.countPage = 1)
+      .then(response => runInAction(() => this.searchData = [...response.docs]))
+      .then(() => runInAction(() => this.loading = false))
+      .then(() => runInAction(() => (this.countPage = 1)))
   }
 
   lazyData() {
@@ -45,9 +45,13 @@ class DescriptionStore {
       this.countPage += 1
       this.loading = true
       SearchFetch(this.searchValue, this.countPage)
-        .then(response => this.searchData = [...this.searchData, ...response.docs])
-        .then(() => this.loading = false)
-        .then(() => this.fetching = false)
+        .then(response =>
+          runInAction(() =>
+            this.searchData = [...this.searchData, ...response.docs],
+          ),
+        )
+        .then(() => runInAction(() => this.loading = false))
+        .then(() => runInAction(() => this.fetching = false))
     }
   }
 

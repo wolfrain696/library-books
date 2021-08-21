@@ -31,3 +31,20 @@ export type BooksData = {
   author_name:string,
   publish_date: string[]
 }
+
+type BookInfo = {
+  description: string | {type: string, value: string} | undefined,
+  title: string,
+  type: {key: string},
+  covers: number[],
+  authors: {author: {key: string}}[],
+  key: string
+}
+type AuthorInfo = {
+  name: string,
+  photos: number[],
+  type: {key: string},
+  birth_date: string,
+  bio?: {value: string},
+  key: string
+}
