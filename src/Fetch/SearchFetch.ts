@@ -15,3 +15,9 @@ export const DescriptionData = async (key: string) => {
   const response = await axios.get(apiUrl + key + '.json')
   return response.data
 }
+
+
+export const SearchFetchAuthor = async (value: string, countPage: number) => {
+  const response = await axios.get(apiUrl + '/search/authors.json?q=' + value + `&page=${countPage}&limit=30`)
+  return response.data
+}

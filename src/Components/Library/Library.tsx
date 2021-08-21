@@ -29,10 +29,12 @@ export const Library: FC = observer(() => {
       }
       case 'favorites': {
         data = favorites.map(el => el.page)
+        // console.log(toJS(favorites))
+        // console.log(toJS(data))
         break
       }
       default : {
-        data = DescriptionStore.searchData
+        data = DescriptionStore.searchAuthot
       }
     }
 
@@ -40,7 +42,9 @@ export const Library: FC = observer(() => {
       DescriptionStore.setCurrentPage(page)
       DescriptionStore.setDescription(key)
     }
-    console.log(toJS(data))
+
+    // console.log(toJS(data))
+
     const changeData = (newData: BooksData[] | PageType[]) => {
       DescriptionStore.changeDataList(newData)
     }
@@ -58,7 +62,7 @@ export const Library: FC = observer(() => {
       if (currentPage.type === 'work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={description} changePage={changePage} />
+                info={description} changePage={changePage}  />
       } else if (currentPage.type === 'author') {
         elementDescription =
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
@@ -74,9 +78,15 @@ export const Library: FC = observer(() => {
           </div>
           <div className={S.content}>
             {window.innerWidth >= 761 &&
-            <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
+            <Search category={category} favorites={favorites} page={currentPage} data={data}
+                    changePage={changePage}
+                    // onCategory={setCategory}
+            />}
             {currentPage?.type === undefined && window.innerWidth <= 760 ?
-              <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+              <Search category={category} favorites={favorites} page={currentPage} data={data}
+                      changePage={changePage}
+                      // onCategory={setCategory}
+              />
               : null
             }
             {
