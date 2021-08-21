@@ -20,7 +20,7 @@ export const Library: FC = observer(() => {
     const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
     const [category, setCategory] = useState<'books' | 'favorites' | 'authors'>('books')
-
+    
     let data
     switch (category) {
       case 'books': {
@@ -40,7 +40,11 @@ export const Library: FC = observer(() => {
 
     const changePage = (page: PageType | undefined, key: string) => {
       DescriptionStore.setCurrentPage(page)
-      DescriptionStore.setDescription(key)
+      if(page?.type === 'author')
+      DescriptionStore.setDescription('/authors/' + key)
+      else {
+        DescriptionStore.setDescription(key)
+      }
     }
 
 
