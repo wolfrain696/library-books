@@ -19,7 +19,7 @@ export const Library: FC = observer(() => {
     const currentPage = DescriptionStore.currentPage
     const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
-    const [category, setCategory] = useState< 'books' | 'favorites' | 'authors'>('books')
+    const [category, setCategory] = useState<'books' | 'favorites' | 'authors'>('books')
 
     let data
     switch (category) {
@@ -56,18 +56,19 @@ export const Library: FC = observer(() => {
       FavoritesStore.removeFavorites(key)
     }
 
-
-    if (currentPage && currentPage.type !== 'undefined' && description) {
-      if (currentPage.type === 'work') {
+    console.log(toJS(description))
+    if (description && description.type?.key !== 'undefined' && currentPage) {
+      if (description.type?.key === '/type/work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={description} changePage={changePage}  />
-      } else if (currentPage.type === 'author') {
+                info={description} changePage={changePage} />
+      } else if (description.type?.key === '/type/author') {
         elementDescription =
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
                   info={description} changePage={changePage} />
       }
-    }    return (
+    }
+    return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>

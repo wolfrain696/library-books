@@ -5,6 +5,8 @@ import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
 import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
+import {toJS} from 'mobx'
+import DescriptionStore from '../../../store/DescriptionStore'
 
 interface BookProps {
   page: PageType,
@@ -41,12 +43,18 @@ export const Book: FC<BookProps> = ({
   }
   let description = info.description
   let text
-
+  console.log(toJS(info))
   if (typeof description != 'undefined') {
     if (typeof description === 'string') {
       text = description
     } else {
       text = description.value
+    }
+  }
+
+  const selectAuthor = (key : any) =>{
+    if(key){
+        DescriptionStore.setDescription(key[0].author.key)
     }
   }
   return (
@@ -56,9 +64,9 @@ export const Book: FC<BookProps> = ({
       </div>}
       <div className={S.top}>
         <div className={S.avatar}>
-          {page.cover_i ?
+          {info.covers?
             <img
-              src={`http://covers.openlibrary.org/b/id/${page.cover_i}-M.jpg`}
+              src={`http://covers.openlibrary.org/b/id/${info.covers[0]}-M.jpg`}
               alt='label'
               className={S.book} />
             :
@@ -67,9 +75,9 @@ export const Book: FC<BookProps> = ({
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page.title}
+            {info.title}
           </h1>
-          <p>Автор: {page.author_name}</p>
+          <p onClick={() => selectAuthor(info.authors)}>Автор: {page.author_name}</p>
           <p>Дата публикации: {page.publish_date[0]}</p>
           {favoriteStatus ?
             <button onClick={() => remove(page.key)}>
