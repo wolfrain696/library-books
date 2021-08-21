@@ -13,7 +13,8 @@ interface ListProps {
   changePage: (page: PageType, key: string) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
-  url: string
+  url: string,
+  category: 'books' | 'favorites' | 'authors'
 }
 
 export const ListItem: FC<ListProps> = ({
@@ -26,6 +27,7 @@ export const ListItem: FC<ListProps> = ({
                                           page,
                                           favorites,
                                           url,
+                                          category,
                                         }) => {
 
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
@@ -50,7 +52,7 @@ export const ListItem: FC<ListProps> = ({
           <div className={S.secondaryText}>
             {title}
           </div>
-          {favoriteStatus && <button className={S.buttonCard}>
+          {favoriteStatus && category != 'favorites' && <button className={S.buttonCard}>
             <img src={favoriteActive} alt='asd' />
           </button>}
         </div>

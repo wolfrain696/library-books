@@ -10,14 +10,14 @@ import DescriptionStore from '../../../store/DescriptionStore'
 interface FavoritesProps {
   onData: (obj: BooksData[] | PageType[]) => void,
   favoritesList: FavoritesType[],
-  onCategory: (category: string) => void,
+  onCategory: (category: 'books' | 'favorites' | 'authors') => void,
   category: string
 }
 
 export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory, category}) => {
 
 
-  const selectCategory = (key: string) => {
+  const selectCategory = (key: 'books' | 'favorites' | 'authors') => {
     onCategory(key)
   }
 

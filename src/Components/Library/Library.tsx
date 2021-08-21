@@ -19,7 +19,7 @@ export const Library: FC = observer(() => {
     const currentPage = DescriptionStore.currentPage
     const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
-    const [category, setCategory] = useState('books')
+    const [category, setCategory] = useState< 'books' | 'favorites' | 'authors'>('books')
 
     let data
     switch (category) {
@@ -40,7 +40,7 @@ export const Library: FC = observer(() => {
       DescriptionStore.setCurrentPage(page)
       DescriptionStore.setDescription(key)
     }
-    console.log(toJS(data))
+
     const changeData = (newData: BooksData[] | PageType[]) => {
       DescriptionStore.changeDataList(newData)
     }
@@ -64,8 +64,7 @@ export const Library: FC = observer(() => {
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
                   info={description} changePage={changePage} />
       }
-    }
-    return (
+    }    return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>
@@ -74,9 +73,9 @@ export const Library: FC = observer(() => {
           </div>
           <div className={S.content}>
             {window.innerWidth >= 761 &&
-            <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
+            <Search category={category} favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
             {currentPage?.type === undefined && window.innerWidth <= 760 ?
-              <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+              <Search category={category} favorites={favorites} page={currentPage} data={data} changePage={changePage} />
               : null
             }
             {

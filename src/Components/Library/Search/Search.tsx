@@ -18,15 +18,22 @@ interface searchProps {
   changePage: (page: PageType, key: string) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
+  category: 'books' | 'favorites' | 'authors'
 }
 
-export const Search: FC<searchProps> = observer(({data, changePage, page, favorites}) => {
+export const Search: FC<searchProps> = observer(({
+                                                   data,
+                                                   changePage,
+                                                   page,
+                                                   favorites,
+                                                   category,
+                                                 }) => {
 
     const [val, setVal] = useState('')
     let filteredElements: any[] = []
     let ShowList
     const searchValue = DescriptionStore.searchValue
-    const loading = DescriptionStore.loading
+     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
 
     // data.docs.forEach((element: PageType) => {
@@ -38,7 +45,8 @@ export const Search: FC<searchProps> = observer(({data, changePage, page, favori
     //   },
     // )
     ShowList = data?.map((element: any) =>
-      <ListItem page={page} favorites={favorites} changePage={changePage} item={element} authorPhoto={element.key}
+      <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
+                authorPhoto={element.key}
                 key={element.key} url={element.key}
                 name={element.name} title={element.title} img={element.cover_edition_key} />,
     )
@@ -54,8 +62,7 @@ export const Search: FC<searchProps> = observer(({data, changePage, page, favori
 
     useEffect(() => {
       if (fetching)
-        console.log(fetching)
-      DescriptionStore.lazyData()
+        DescriptionStore.lazyData()
 
     }, [fetching])
 
