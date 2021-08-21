@@ -61,7 +61,7 @@ export const Author: FC<AuthorProps> = ({
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page?.name}
+            {info?.name}
           </h1>
           <p>Дата рождения: {info?.birth_date}</p>
           <p>Лучшая работа: {page?.top_work} </p>
