@@ -1,6 +1,5 @@
 import {makeAutoObservable} from 'mobx'
-import {DescriptionTypes, FavoritesType, PageType} from '../Types/Types'
-import {useEffect} from 'react'
+import {AuthorInfo, BookInfo, FavoritesType, PageType} from '../Types/Types'
 
 
 class FavoritesStore {
@@ -13,7 +12,7 @@ class FavoritesStore {
 
   }
 
-  addFavorite(page: PageType, des: DescriptionTypes) {
+  addFavorite(page: PageType, des: BookInfo | AuthorInfo) {
     this.favorites = [{page: {...page}, info: {...des}}, ...this.favorites]
     this.setLocalStorage()
   }

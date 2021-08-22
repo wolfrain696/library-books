@@ -4,19 +4,26 @@ import heartImg from '../../../img/heart.svg'
 import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
-import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
+import {AuthorInfo, FavoritesType, PageType} from '../../../Types/Types'
 
 
 interface AuthorProps {
   page: PageType,
-  info: DescriptionTypes,
+  info: AuthorInfo,
   favorites: FavoritesType[],
-  onFavorites: (page: PageType, info: DescriptionTypes) => void,
+  onFavorites: (page: PageType, info: AuthorInfo) => void,
   removeFavorite: (key: string) => void,
   changePage: (page: PageType | undefined, key: string) => void
 }
 
-export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, removeFavorite, changePage}) => {
+export const Author: FC<AuthorProps> = ({
+                                          page,
+                                          info,
+                                          favorites,
+                                          onFavorites,
+                                          removeFavorite,
+                                          changePage,
+                                        }) => {
 
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1
 
@@ -52,7 +59,7 @@ export const Author: FC<AuthorProps> = ({page, info, favorites, onFavorites, rem
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page?.name}
+            {info?.name}
           </h1>
           <p>Дата рождения: {info?.birth_date}</p>
           <p>Лучшая работа: {page?.top_work} </p>

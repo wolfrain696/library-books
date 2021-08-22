@@ -4,13 +4,14 @@ import avatar from '../../../img/avatar_author-lg.png'
 import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
-import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
+import {BookInfo, FavoritesType, PageType} from '../../../Types/Types'
+import DescriptionStore from '../../../store/DescriptionStore'
 
 interface BookProps {
   page: PageType,
-  info: DescriptionTypes,
+  info: BookInfo,
   favorites: FavoritesType[],
-  onFavorites: (page: PageType, info: DescriptionTypes) => void,
+  onFavorites: (page: PageType, info: BookInfo) => void,
   removeFavorite: (key: string) => void,
   changePage: (page: PageType | undefined, key: string) => void
 }
@@ -41,12 +42,17 @@ export const Book: FC<BookProps> = ({
   }
   let description = info.description
   let text
-
   if (typeof description != 'undefined') {
     if (typeof description === 'string') {
       text = description
     } else {
       text = description.value
+    }
+  }
+
+  const selectAuthor = (key: any) => {
+    if (key) {
+      DescriptionStore.setDescription(key[0].author.key)
     }
   }
   return (
@@ -56,9 +62,9 @@ export const Book: FC<BookProps> = ({
       </div>}
       <div className={S.top}>
         <div className={S.avatar}>
-          {page.cover_i ?
+          {info.covers ?
             <img
-              src={`http://covers.openlibrary.org/b/id/${page.cover_i}-M.jpg`}
+              src={`http://covers.openlibrary.org/b/id/${info.covers[0]}-M.jpg`}
               alt='label'
               className={S.book} />
             :
@@ -67,10 +73,10 @@ export const Book: FC<BookProps> = ({
         </div>
         <div className={S.content}>
           <h1 className={S.h1}>
-            {page.title}
+            {info.title}
           </h1>
-          <p>Автор: {page.author_name}</p>
-          <p>Дата публикации: {page.publish_date[0]}</p>
+          <p onClick={() => selectAuthor(info.authors)}>Автор: {info.authors[0].name}</p>
+          {page.publish_date && <p>Дата публикации: {page.publish_date[0]}</p>}
           {favoriteStatus ?
             <button onClick={() => remove(page.key)}>
               <img src={favoriteActive} alt='like' className={S.like_book} />
@@ -83,7 +89,13 @@ export const Book: FC<BookProps> = ({
         </div>
 
       </div>
-      <p className={S.p}> {text} </p>
+      {
+        description ?
+          <p className={S.p}> {text} </p>
+          :
+          <h2>Описание отсутствует =(</h2>
+      }
+
     </div>
   )
 }

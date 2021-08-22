@@ -5,7 +5,14 @@ import {FC, useState} from 'react'
 import S from './Library.module.css'
 import {Author} from './Content/Author'
 import {Header} from './Header/Header'
-import {DescriptionTypes, PageType} from '../../Types/Types'
+import {
+  AuthorInfo,
+  AuthorInfoGuard,
+  BookInfo,
+  BookInfoGuard,
+  BooksData,
+  PageType,
+} from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
 import {observer} from 'mobx-react-lite'
 import classNames from 'classnames'
@@ -17,42 +24,60 @@ export const Library: FC = observer(() => {
     let elementDescription
     const favorites = FavoritesStore.favorites
     const currentPage = DescriptionStore.currentPage
-    const descripton = toJS(DescriptionStore.description)
-    const data = toJS(DescriptionStore.searchData?.docs)
-
+    const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
-    const [category, setCategory] = useState('books')
-    console.log(descripton)
+    const category = DescriptionStore.category
+
+    let data
+    switch (category) {
+      case 'books': {
+        data = DescriptionStore.searchData
+        break
+      }
+      case 'favorites': {
+        data = favorites.map(el => el.page)
+        break
+      }
+      case 'default': {
+        data = DescriptionStore.defaultBooks
+        break
+      }
+      default : {
+        data = DescriptionStore.searchAuthot
+      }
+    }
+
     const changePage = (page: PageType | undefined, key: string) => {
       DescriptionStore.setCurrentPage(page)
-      DescriptionStore.setDescription(key)
+      if (page?.type === 'author')
+        DescriptionStore.setDescription('/authors/' + key)
+      else {
+        DescriptionStore.setDescription(key)
+      }
     }
 
-    const changeData = (newData: {}) => {
-          DescriptionStore.changeDataList(newData)
+
+    const changeData = (newData: BooksData[] | PageType[]) => {
+      DescriptionStore.changeDataList(newData)
     }
 
-    const onFavorites = (page: PageType, info: DescriptionTypes) => {
+    const onFavorites = (page: PageType, info: BookInfo | AuthorInfo) => {
       FavoritesStore.addFavorite(page, info)
     }
 
     const removeFavorite = (key: string) => {
       FavoritesStore.removeFavorites(key)
-      if (category === 'favorites') {
-        // setData({docs: favorites.filter(el => el.page.key !== key).map(el => el.page)})
-      }
     }
-
-
-    if (currentPage && currentPage.type !== 'undefined' && descripton) {
-      if (currentPage.type === 'work') {
+    if (description && description.type?.key !== undefined && currentPage) {
+      console.log(toJS(description.type?.key))
+      if (description.type.key === '/type/work' && BookInfoGuard(description)) {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={descripton} changePage={changePage} />
-      } else if (currentPage.type === 'author') {
+                info={description} changePage={changePage} />
+      } else if (description.type.key === '/type/author' && AuthorInfoGuard(description)) {
         elementDescription =
           <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                  info={descripton} changePage={changePage} />
+                  info={description} changePage={changePage} />
       }
     }
     return (
@@ -60,13 +85,13 @@ export const Library: FC = observer(() => {
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>
           <div onClick={e => e.stopPropagation()} className={classNames(S.sidebar, [sidebar && S.active])}>
-            <Favorites category={category} onCategory={setCategory} favoritesList={favorites} onData={changeData} />
+            <Favorites category={category} favoritesList={favorites} onData={changeData} />
           </div>
           <div className={S.content}>
             {window.innerWidth >= 761 &&
-            <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
+            <Search category={category} favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
             {currentPage?.type === undefined && window.innerWidth <= 760 ?
-              <Search favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+              <Search category={category} favorites={favorites} page={currentPage} data={data} changePage={changePage} />
               : null
             }
             {
