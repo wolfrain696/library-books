@@ -4,17 +4,16 @@ import heartImg from '../../../img/heart.svg'
 import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
-import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
+import {AuthorInfo, FavoritesType, PageType} from '../../../Types/Types'
 
 
 interface AuthorProps {
   page: PageType,
-  info: DescriptionTypes,
+  info: AuthorInfo,
   favorites: FavoritesType[],
-  onFavorites: (page: PageType, info: DescriptionTypes) => void,
+  onFavorites: (page: PageType, info: AuthorInfo) => void,
   removeFavorite: (key: string) => void,
   changePage: (page: PageType | undefined, key: string) => void
-  // onCategory: (category: string) => void,
 }
 
 export const Author: FC<AuthorProps> = ({
@@ -24,7 +23,6 @@ export const Author: FC<AuthorProps> = ({
                                           onFavorites,
                                           removeFavorite,
                                           changePage,
-                                          // onCategory,
                                         }) => {
 
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1

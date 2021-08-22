@@ -1,17 +1,17 @@
 import {ListItem} from './ListItem/ListItem'
 import S from './Search.module.css'
 import searchImg from '../../../img/search.svg'
-import React, {FC, useEffect, useState} from 'react'
-import {DescriptionTypes, FavoritesType, PageType} from '../../../Types/Types'
-import {
-  isBook,
-  isAuthor,
-  filterByTitle,
-  filterByAuthorName,
-} from './FunctionSearch'
+import React, {FC, useEffect} from 'react'
+import {Category, FavoritesType, PageType} from '../../../Types/Types'
+// import {
+//   isBook,
+//   isAuthor,
+//   filterByTitle,
+//   filterByAuthorName,
+// } from './FunctionSearch'
 import DescriptionStore from '../../../store/DescriptionStore'
 import {observer} from 'mobx-react-lite'
-import {toJS} from 'mobx'
+
 
 interface searchProps {
   //todo тип
@@ -19,7 +19,7 @@ interface searchProps {
   changePage: (page: PageType, key: string) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
-  category: 'books' | 'favorites' | 'authors'
+  category: Category
 }
 
 export const Search: FC<searchProps> = observer(({
@@ -30,8 +30,7 @@ export const Search: FC<searchProps> = observer(({
                                                    category,
                                                  }) => {
 
-    const [val, setVal] = useState('')
-    let filteredElements: any[] = []
+    // let filteredElements: any[] = []
     let ShowList
     const searchValue = DescriptionStore.searchValue
     const loading = DescriptionStore.loading
@@ -55,7 +54,7 @@ export const Search: FC<searchProps> = observer(({
 
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
       let text = e.target.value
-      setVal(text)
+      // setVal(text)
       DescriptionStore.changeSearchValue(text)
       if (category === 'favorites') {
         console.log(text)
@@ -95,20 +94,10 @@ export const Search: FC<searchProps> = observer(({
 
     useEffect(() => {
       if (fetching)
-
         console.log(fetching)
-      if (category === 'books') {
-        DescriptionStore.lazyData()
-      } else if (category === 'authors') {
-        DescriptionStore.lazyDataAuthors()
-        // console.log('dd')
-      }
+      DescriptionStore.lazyData()
 
     }, [fetching])
-
-    useEffect(() => {
-
-    }, [])
 
     const scrollHandler = (e: React.BaseSyntheticEvent) => {
       let scrollHeight = e.target.scrollHeight

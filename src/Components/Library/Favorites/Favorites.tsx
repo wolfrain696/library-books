@@ -3,22 +3,20 @@ import heartImg from '../../../img/heart.svg'
 import {FC} from 'react'
 import {BooksData, FavoritesType, PageType} from '../../../Types/Types'
 import classNames from 'classnames'
-import FavoritesStore from '../../../store/FavoritesStore'
 import DescriptionStore from '../../../store/DescriptionStore'
 
 //todo типы улучшать надо, никаких any и {}
 interface FavoritesProps {
   onData: (obj: BooksData[] | PageType[]) => void,
   favoritesList: FavoritesType[],
-  onCategory: (category: 'books' | 'favorites' | 'authors') => void,
   category: string
 }
 
-export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, onCategory, category}) => {
+export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, category}) => {
 
 
   const selectCategory = (key: 'books' | 'favorites' | 'authors') => {
-    onCategory(key)
+      DescriptionStore.changeCategory(key)
   }
 
   return (
