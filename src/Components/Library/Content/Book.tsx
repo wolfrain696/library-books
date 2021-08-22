@@ -43,7 +43,6 @@ export const Book: FC<BookProps> = ({
   }
   let description = info.description
   let text
-  console.log(toJS(info))
   if (typeof description != 'undefined') {
     if (typeof description === 'string') {
       text = description

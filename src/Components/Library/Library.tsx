@@ -59,9 +59,8 @@ export const Library: FC = observer(() => {
     const removeFavorite = (key: string) => {
       FavoritesStore.removeFavorites(key)
     }
-
-    console.log(toJS(description))
     if (description && description.type?.key !== 'undefined' && currentPage) {
+      console.log(toJS(description.type?.key))
       if (description.type?.key === '/type/work') {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}

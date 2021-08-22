@@ -23,6 +23,7 @@ class DescriptionStore {
   }
 
   setDescription(key: string) {
+    this.description = {}
     DescriptionData(key).then(response => runInAction(() => this.description = {...response}))
   }
 
