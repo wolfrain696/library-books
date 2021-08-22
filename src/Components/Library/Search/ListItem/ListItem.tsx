@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import S from './BookCard.module.css'
 import favoriteActive from '../../../../img/favoriteActive.svg'
 import avatar from '../../../../img/avatar_author-lg.png'
-import {DescriptionTypes, FavoritesType, PageType} from '../../../../Types/Types'
+import {Category, FavoritesType, PageType} from '../../../../Types/Types'
 
 interface ListProps {
   title: string,
@@ -14,7 +14,7 @@ interface ListProps {
   page: PageType | undefined,
   favorites: FavoritesType[],
   url: string,
-  category: 'books' | 'favorites' | 'authors'
+  category: Category
 }
 
 export const ListItem: FC<ListProps> = ({
@@ -52,7 +52,7 @@ export const ListItem: FC<ListProps> = ({
           <div className={S.secondaryText}>
             {title}
           </div>
-          {favoriteStatus && category != 'favorites' && <button className={S.buttonCard}>
+          {favoriteStatus && category !== 'favorites' && <button className={S.buttonCard}>
             <img src={favoriteActive} alt='asd' />
           </button>}
         </div>
