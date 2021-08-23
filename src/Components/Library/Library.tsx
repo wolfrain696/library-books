@@ -80,6 +80,7 @@ export const Library: FC = observer(() => {
                   info={description} changePage={changePage} />
       }
     }
+    console.log('111')
     return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
