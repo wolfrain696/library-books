@@ -66,29 +66,23 @@ class DescriptionStore {
         .then(() => runInAction(() => this.loading = false))
         .then(() => runInAction(() => this.fetching = false))
     }
+    if (this.category === 'authors') {
+      this.offset += 10
+      this.loading = true
+      SearchFetchAuthor(this.searchValue, this.offset)
+        .then(respon => runInAction(() => this.searchAuthot = [...this.searchAuthot, ...respon.docs]))
+        .then(() => runInAction(() => this.loading = false))
+        .then(() => runInAction(() => this.fetching = false))
+    }
   }
 
   addAuthors() {
     if (this.searchValue !== '')
       this.loading = true
-    SearchFetchAuthor(this.searchValue, 1)
-      .then(response => this.searchAuthot = [...response.docs])
-      .then(() => this.loading = false)
-      .then(() => this.countPage = 1)
-
-    console.log(this.searchAuthot.length)
-  }
-
-  lazyDataAuthors() {
-    if (this.searchAuthot.length > 0) {
-      this.countPage += 1
-      this.loading = true
-      SearchFetchAuthor(this.searchValue, this.countPage)
-        .then(respon => this.searchAuthot = [...this.searchAuthot, ...respon.docs])
-        .then(() => this.loading = false)
-        .then(() => this.fetching = false)
-    }
-
+    SearchFetchAuthor(this.searchValue, 0)
+      .then(response => runInAction(() => this.searchAuthot = [...response.docs]))
+      .then(() => runInAction(() => this.loading = false))
+      .then(() => runInAction(() => this.offset = 0))
   }
 
   addDefaultBooks() {

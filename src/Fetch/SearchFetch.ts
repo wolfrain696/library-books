@@ -18,8 +18,8 @@ export const DescriptionData = async (key: string) => {
 }
 
 
-export const SearchFetchAuthor = async (value: string, countPage: number) => {
-  const response = await axios.get(apiUrl + '/search/authors.json?q=' + value + `&page=${countPage}&limit=30`)
+export const SearchFetchAuthor = async (value: string, offset: number) => {
+  const response = await axios.get(apiUrl + '/search/authors.json?q=' + value + `&offset=${offset}&limit=10`)
   return response.data
 }
 
