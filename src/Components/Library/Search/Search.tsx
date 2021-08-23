@@ -45,7 +45,7 @@ export const Search: FC<searchProps> = observer(({
                   name={element.name} title={element.title} img={element.cover_edition_key} />,
       )
       // console.log('исход')
-      // console.log(ShowList)
+      console.log(ShowList)
     }
 // console.log(toJS(page))
 

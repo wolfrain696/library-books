@@ -22,13 +22,14 @@ import {toJS} from 'mobx'
 
 export const Library: FC = observer(() => {
     let elementDescription
+    let data
+
     const favorites = FavoritesStore.favorites
     const currentPage = DescriptionStore.currentPage
     const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
     const category = DescriptionStore.category
 
-    let data
     switch (category) {
       case 'books': {
         data = DescriptionStore.searchData
@@ -49,13 +50,13 @@ export const Library: FC = observer(() => {
 
     const changePage = (page: PageType | undefined, key: string) => {
       DescriptionStore.setCurrentPage(page)
-      if (page?.type === 'author')
+      if (page?.type === 'author') {
         DescriptionStore.setDescription('/authors/' + key)
+      }
       else {
         DescriptionStore.setDescription(key)
       }
     }
-
 
     const changeData = (newData: BooksData[] | PageType[]) => {
       DescriptionStore.changeDataList(newData)
@@ -68,6 +69,7 @@ export const Library: FC = observer(() => {
     const removeFavorite = (key: string) => {
       FavoritesStore.removeFavorites(key)
     }
+
     if (description && description.type?.key !== undefined && currentPage) {
       console.log(toJS(description.type?.key))
       if (description.type.key === '/type/work' && BookInfoGuard(description)) {
@@ -80,7 +82,7 @@ export const Library: FC = observer(() => {
                   info={description} changePage={changePage} />
       }
     }
-    console.log('111')
+
     return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
