@@ -37,9 +37,9 @@ export const Book: FC<BookProps> = ({
     window.onresize = () => {
       w = window.innerWidth
     }
-
     return w
   }
+
   let description = info.description
   let text
   if (typeof description != 'undefined') {
@@ -55,6 +55,7 @@ export const Book: FC<BookProps> = ({
       DescriptionStore.setDescription(key[0].author.key)
     }
   }
+
   return (
     <div className={S.description}>
       {windowWidth() < 760 && <div>
@@ -75,7 +76,7 @@ export const Book: FC<BookProps> = ({
           <h1 className={S.h1}>
             {info.title}
           </h1>
-          <p onClick={() => selectAuthor(info.authors)}>Автор: {info.authors[0].name}</p>
+          <p onClick={() => selectAuthor(info.authors)}>Автор: {page.author_name}</p>
           {page.publish_date && <p>Дата публикации: {page.publish_date[0]}</p>}
           {favoriteStatus ?
             <button onClick={() => remove(page.key)}>
