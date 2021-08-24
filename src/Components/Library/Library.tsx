@@ -47,7 +47,6 @@ export const Library: FC = observer(() => {
         data = DescriptionStore.searchAuthor
       }
     }
-      console.log(toJS(data))
     const changePage = (page: PageType | undefined, key: string) => {
       DescriptionStore.setCurrentPage(page)
       if (page?.type === 'author') {
@@ -58,8 +57,9 @@ export const Library: FC = observer(() => {
       }
     }
 
-
-
+      console.log(toJS(filteredFavorites))
+      console.log(toJS(favorites))
+      console.log(toJS(data))
     const onFavorites = (page: PageType, info: BookInfo | AuthorInfo) => {
       FavoritesStore.addFavorite(page, info)
     }
