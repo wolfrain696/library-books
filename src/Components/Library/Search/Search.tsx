@@ -29,6 +29,7 @@ export const Search: FC<searchProps> = observer(({
     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
 
+
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
       let text = e.target.value
       DescriptionStore.changeSearchValue(text)

@@ -1,6 +1,8 @@
 import {makeAutoObservable, runInAction} from 'mobx'
+
 import {AuthorInfo, BookInfo, Category, PageType} from '../Types/Types'
-import {DefaultBook, DescriptionData, SearchFetch, SearchFetchAuthor} from '../Fetch/SearchFetch'
+import {DefaultBook, DescriptionData, SearchFetch, SearchFetchAuthor, AuthorBooks} from '../Fetch/SearchFetch'
+
 
 
 class DescriptionStore {
@@ -10,11 +12,13 @@ class DescriptionStore {
   searchData:  PageType[] = []
   defaultBooks:  PageType[] = []
   loading: boolean = false
+  searchField: boolean = false
   countPage: number = 1
   fetching: boolean = false
   searchAuthor: PageType[] = []
   category: Category = 'default'
   offset: number = 0
+
 
   constructor() {
     makeAutoObservable(this)
@@ -39,11 +43,21 @@ class DescriptionStore {
       .then(() => runInAction(() => (this.countPage = 1)))
   }
 
+  addAuthorBooks  (val:any) {
+    this.category = 'books'
+    this.searchData = []
+    this.loading = true
+    AuthorBooks(val, 1).then(response => runInAction(() => this.searchData = [...response.docs]))
+      .then(() => runInAction(() => this.loading = false))
+      .then(() => runInAction(() => this.searchField = true))
+    this.searchValue = val
+  }
+
   lazyData() {
     if (this.searchData.length > 0 && this.category === 'books') {
       this.countPage += 1
       this.loading = true
-      SearchFetch(this.searchValue, this.countPage)
+      SearchFetch(this.searchValue, this.countPage, this.searchField)
         .then(response =>
           runInAction(() =>
             this.searchData = [...this.searchData, ...response.docs],
@@ -51,6 +65,7 @@ class DescriptionStore {
         )
         .then(() => runInAction(() => this.loading = false))
         .then(() => runInAction(() => this.fetching = false))
+        .then(() => runInAction(() => this.searchField = false))
     }
     if (this.category === 'default') {
       console.log(this.loading)
