@@ -11,6 +11,7 @@ class FavoritesStore {
     makeAutoObservable(this)
     this.addFavoritesFromLocal()
     this.filteredFavorites = this.favorites.map(el => el.page)
+
   }
 
   filterFavorite(text : string) {
@@ -24,11 +25,13 @@ class FavoritesStore {
   addFavorite(page: PageType, des: BookInfo | AuthorInfo) {
     this.favorites = [{page: {...page}, info: {...des}}, ...this.favorites]
     this.setLocalStorage()
+    this.filteredFavorites = this.favorites.map(el => el.page)
   }
 
   removeFavorites(key: string) {
     this.favorites = this.favorites.filter(el => el.page.key !== key)
     this.setLocalStorage()
+    this.filteredFavorites = this.favorites.map(el => el.page)
   }
 
   addFavoritesFromLocal() {
