@@ -1,15 +1,24 @@
 import {makeAutoObservable} from 'mobx'
 import {AuthorInfo, BookInfo, FavoritesType, PageType} from '../Types/Types'
+import {filterByAuthorName, filterByTitle, isAuthor, isBook} from '../Components/Library/Search/FunctionSearch'
 
 
 class FavoritesStore {
   favorites: FavoritesType[] = []
   data: string | null = localStorage.getItem('favorite')
-
+  filteredFavorites : PageType[] = this.favorites.map(el => el.page)
   constructor() {
     makeAutoObservable(this)
     this.addFavoritesFromLocal()
+    this.filteredFavorites = this.favorites.map(el => el.page)
+  }
 
+  filterFavorite(text : string) {
+    this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
+      return (
+        isBook(element) && filterByTitle(element, text)) || (isAuthor(element) && filterByAuthorName(element, text)
+      )
+    })
   }
 
   addFavorite(page: PageType, des: BookInfo | AuthorInfo) {

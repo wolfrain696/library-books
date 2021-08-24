@@ -7,20 +7,8 @@ export type PageType = {
   type?: string,
   top_work?: string,
   author_name?: string,
-  publish_date: string[]
-}
-
-export interface DescriptionTypes {
-  description?: string | {type: string, value: string} | undefined,
-  title?: string,
-  key?: string,
-  covers?: Array<number>,
-  name?: string,
-  birth_date?: string,
-  photos?: number[],
-  bio?: {type: string, value: string},
-  authors?: {author: {key: string}}[] | undefined,
-  type?: {key: string}
+  publish_date: string[],
+  cover_edition_key: string;
 }
 
 export type FavoritesType = {page: PageType, info: BookInfo | AuthorInfo}

@@ -1,5 +1,5 @@
 import {makeAutoObservable, runInAction} from 'mobx'
-import {AuthorInfo, BookInfo, BooksData, Category, PageType} from '../Types/Types'
+import {AuthorInfo, BookInfo, Category, PageType} from '../Types/Types'
 import {DefaultBook, DescriptionData, SearchFetch, SearchFetchAuthor} from '../Fetch/SearchFetch'
 
 
@@ -7,12 +7,12 @@ class DescriptionStore {
   currentPage: PageType | undefined
   description: BookInfo | AuthorInfo | undefined
   searchValue: string = ''
-  searchData: BooksData[] | PageType[] = []
-  defaultBooks: BooksData[] | PageType[] = []
+  searchData:  PageType[] = []
+  defaultBooks:  PageType[] = []
   loading: boolean = false
   countPage: number = 1
   fetching: boolean = false
-  searchAuthot: PageType[] = []
+  searchAuthor: PageType[] = []
   category: Category = 'default'
   offset: number = 0
 
@@ -28,11 +28,6 @@ class DescriptionStore {
   setDescription(key: string) {
     this.description = undefined
     DescriptionData(key).then(response => runInAction(() => this.description = {...response}))
-  }
-
-  changeDataList(data: BooksData[] | PageType[]) {
-    this.searchData = data
-    this.searchAuthot = data
   }
 
   addData() {
@@ -70,7 +65,7 @@ class DescriptionStore {
       this.offset += 10
       this.loading = true
       SearchFetchAuthor(this.searchValue, this.offset)
-        .then(respon => runInAction(() => this.searchAuthot = [...this.searchAuthot, ...respon.docs]))
+        .then(respon => runInAction(() => this.searchAuthor = [...this.searchAuthor, ...respon.docs]))
         .then(() => runInAction(() => this.loading = false))
         .then(() => runInAction(() => this.fetching = false))
     }
@@ -80,7 +75,7 @@ class DescriptionStore {
     if (this.searchValue !== '')
       this.loading = true
     SearchFetchAuthor(this.searchValue, 0)
-      .then(response => runInAction(() => this.searchAuthot = [...response.docs]))
+      .then(response => runInAction(() => this.searchAuthor = [...response.docs]))
       .then(() => runInAction(() => this.loading = false))
       .then(() => runInAction(() => this.offset = 0))
   }
