@@ -5,6 +5,7 @@ import favoriteActive from '../../../img/favoriteActive.svg'
 import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
 import {AuthorInfo, FavoritesType, PageType} from '../../../Types/Types'
+import DescriptionStore from '../../../store/DescriptionStore'
 
 
 interface AuthorProps {
@@ -27,7 +28,6 @@ export const Author: FC<AuthorProps> = ({
 
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1
 
-
   const addFavorites = () => {
     onFavorites(page, info)
   }
@@ -38,9 +38,23 @@ export const Author: FC<AuthorProps> = ({
     window.onresize = () => {
       w = window.innerWidth
     }
-
     return w
   }
+
+  const listOfWorks = (val: string ) => {
+    DescriptionStore.addAuthorBooks(val)
+  }
+
+  let biography = info.bio
+  let text
+  if (typeof biography != 'undefined') {
+    if (typeof biography === 'string') {
+      text = biography
+    } else {
+      text = biography.value
+    }
+  }
+
   return (
     <div className={S.description}>
       {windowWidth() < 760 && <div>
@@ -62,7 +76,9 @@ export const Author: FC<AuthorProps> = ({
             {info?.name}
           </h1>
           <p>Дата рождения: {info?.birth_date}</p>
-          <p>Лучшая работа: {page?.top_work} </p>
+          <p className={S.link} onClick={() => listOfWorks(info?.name)}>
+            Список работ
+          </p>
           {favoriteStatus ?
             <button onClick={() => removeFavorite(page?.key)}>
               <img src={favoriteActive} alt='like' className={S.like_book} />
@@ -74,7 +90,12 @@ export const Author: FC<AuthorProps> = ({
           }
         </div>
       </div>
-      <p className={S.p}>{info?.bio?.value} </p>
+      {
+        biography ?
+          <p className={S.p}> {text} </p>
+          :
+          <h2>Описание отсутствует =(</h2>
+      }
     </div>
   )
 }

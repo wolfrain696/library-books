@@ -5,9 +5,9 @@ import avatar from '../../../../img/avatar_author-lg.png'
 import {Category, FavoritesType, PageType} from '../../../../Types/Types'
 
 interface ListProps {
-  title: string,
-  img: string,
-  name: string,
+  title?: string,
+  img?: string,
+  name?: string,
   authorPhoto: string,
   item: PageType,
   changePage: (page: PageType, key: string) => void,

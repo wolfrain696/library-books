@@ -1,18 +1,14 @@
 import S from './Favorites.module.css'
 import heartImg from '../../../img/heart.svg'
 import {FC} from 'react'
-import {BooksData, FavoritesType, PageType} from '../../../Types/Types'
 import classNames from 'classnames'
 import DescriptionStore from '../../../store/DescriptionStore'
 
-//todo типы улучшать надо, никаких any и {}
 interface FavoritesProps {
-  onData: (obj: BooksData[] | PageType[]) => void,
-  favoritesList: FavoritesType[],
   category: string
 }
 
-export const Favorites: FC<FavoritesProps> = ({onData, favoritesList, category}) => {
+export const Favorites: FC<FavoritesProps> = ({category}) => {
 
 
   const selectCategory = (key: 'books' | 'favorites' | 'authors') => {

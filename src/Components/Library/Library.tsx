@@ -10,7 +10,6 @@ import {
   AuthorInfoGuard,
   BookInfo,
   BookInfoGuard,
-  BooksData,
   PageType,
 } from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
@@ -22,20 +21,22 @@ import {toJS} from 'mobx'
 
 export const Library: FC = observer(() => {
     let elementDescription
+    let data
+
     const favorites = FavoritesStore.favorites
+    const filteredFavorites = FavoritesStore.filteredFavorites
     const currentPage = DescriptionStore.currentPage
     const description = DescriptionStore.description
     const [sidebar, setSidebar] = useState(false)
     const category = DescriptionStore.category
 
-    let data
     switch (category) {
       case 'books': {
         data = DescriptionStore.searchData
         break
       }
       case 'favorites': {
-        data = favorites.map(el => el.page)
+        data = filteredFavorites
         break
       }
       case 'default': {
@@ -43,23 +44,21 @@ export const Library: FC = observer(() => {
         break
       }
       default : {
-        data = DescriptionStore.searchAuthot
+        data = DescriptionStore.searchAuthor
       }
     }
-
+      console.log(toJS(data))
     const changePage = (page: PageType | undefined, key: string) => {
       DescriptionStore.setCurrentPage(page)
-      if (page?.type === 'author')
+      if (page?.type === 'author') {
         DescriptionStore.setDescription('/authors/' + key)
+      }
       else {
         DescriptionStore.setDescription(key)
       }
     }
 
 
-    const changeData = (newData: BooksData[] | PageType[]) => {
-      DescriptionStore.changeDataList(newData)
-    }
 
     const onFavorites = (page: PageType, info: BookInfo | AuthorInfo) => {
       FavoritesStore.addFavorite(page, info)
@@ -68,8 +67,8 @@ export const Library: FC = observer(() => {
     const removeFavorite = (key: string) => {
       FavoritesStore.removeFavorites(key)
     }
+
     if (description && description.type?.key !== undefined && currentPage) {
-      console.log(toJS(description.type?.key))
       if (description.type.key === '/type/work' && BookInfoGuard(description)) {
         elementDescription =
           <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
@@ -80,12 +79,13 @@ export const Library: FC = observer(() => {
                   info={description} changePage={changePage} />
       }
     }
+
     return (
       <div className={S.container}>
         <Header onSidebar={setSidebar} sidebar={sidebar} />
         <main onClick={() => setSidebar(false)} className={S.body}>
           <div onClick={e => e.stopPropagation()} className={classNames(S.sidebar, [sidebar && S.active])}>
-            <Favorites category={category} favoritesList={favorites} onData={changeData} />
+            <Favorites category={category} />
           </div>
           <div className={S.content}>
             {window.innerWidth >= 761 &&
