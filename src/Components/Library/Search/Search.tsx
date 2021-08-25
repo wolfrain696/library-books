@@ -24,7 +24,7 @@ export const Search: FC<searchProps> = observer(({
                                                    category,
                                                  }) => {
 
-    let ShowList
+
     const searchValue = DescriptionStore.searchValue
     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
@@ -34,17 +34,17 @@ export const Search: FC<searchProps> = observer(({
       let text = e.target.value
       DescriptionStore.changeSearchValue(text)
       if (category === 'favorites') {
-          FavoritesStore.filterFavorite(text)
+        FavoritesStore.filterFavorite(text)
       }
 
     }
 
-  ShowList = data?.map((element) =>
-    <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
-              authorPhoto={element.key}
-              key={element.key} url={element.key}
-              name={element.name} title={element.title} img={element.cover_edition_key} />,
-  )
+    const ShowList = data?.map((element) =>
+      <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
+                authorPhoto={element.key}
+                key={element.key} url={element.key}
+                name={element.name} title={element.title} img={element.cover_edition_key} />,
+    )
 
 
     const Search = (e: React.KeyboardEvent) => {
@@ -70,8 +70,6 @@ export const Search: FC<searchProps> = observer(({
       if (scrollHeight - (scrollTop + 500) < 100)
         DescriptionStore.changeFetching(true)
     }
-
-
 
 
     return (

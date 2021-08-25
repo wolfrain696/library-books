@@ -31,15 +31,7 @@ export const Author: FC<AuthorProps> = ({
   const addFavorites = () => {
     onFavorites(page, info)
   }
-  const windowWidth = () => {
-    let w = window.innerWidth
-    //todo зачем здесь? он ничего не изменит, если не использовать state или mobx
-    //в идеале надо вынести это в стор
-    window.onresize = () => {
-      w = window.innerWidth
-    }
-    return w
-  }
+
 
   const listOfWorks = (val: string ) => {
     DescriptionStore.addAuthorBooks(val)
@@ -57,7 +49,7 @@ export const Author: FC<AuthorProps> = ({
 
   return (
     <div className={S.description}>
-      {windowWidth() < 760 && <div>
+      {window.innerWidth < 760 && <div>
         <ExitButton changePage={changePage} />
       </div>}
       <div className={S.top}>
