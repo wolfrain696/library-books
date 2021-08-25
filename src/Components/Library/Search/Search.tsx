@@ -25,7 +25,7 @@ export const Search: FC<searchProps> = observer(({
                                                    category,
                                                  }) => {
 
-    let ShowList
+
     const searchValue = DescriptionStore.searchValue
     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
@@ -61,7 +61,8 @@ export const Search: FC<searchProps> = observer(({
       }
     }
 
-    ShowList = data?.map((element) =>
+
+    const ShowList = data?.map((element) =>
       <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
                 authorPhoto={element.key}
                 key={element.key} url={element.key}
