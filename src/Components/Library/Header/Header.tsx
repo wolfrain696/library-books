@@ -6,7 +6,6 @@ import FavoritesStore from '../../../store/FavoritesStore'
 
 interface PropsType {
   sidebar: boolean,
-
 }
 
 export const Header: FC<PropsType> = ({sidebar}) => {

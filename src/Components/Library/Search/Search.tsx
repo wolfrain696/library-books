@@ -46,7 +46,6 @@ export const Search: FC<searchProps> = observer(({
                 name={element.name} title={element.title} img={element.cover_edition_key} />,
     )
 
-
     const Search = (e: React.KeyboardEvent) => {
       if (e.key === 'Enter') {
         if (category === 'books') {

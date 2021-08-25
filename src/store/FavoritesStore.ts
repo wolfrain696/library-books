@@ -12,7 +12,6 @@ class FavoritesStore {
     makeAutoObservable(this)
     this.addFavoritesFromLocal()
     this.filteredFavorites = this.favorites.map(el => el.page)
-
   }
 
   changeSidebar(status : boolean){

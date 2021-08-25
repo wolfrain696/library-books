@@ -1,7 +1,5 @@
 import {z} from 'zod'
 
-
-
 export type FavoritesType = {page: PageType, info: BookInfo | AuthorInfo}
 export type Category = 'books' | 'favorites' | 'authors' | 'default'
 
@@ -27,7 +25,7 @@ const AuthorResponseZod = z.object({
   photos: z.array(z.number()),
   type: z.object({key: z.string()}),
   birth_date: z.string(),
-  bio: z.object({value : z.string()}).or(z.undefined()),
+  bio: z.object({value : z.string()}).or(z.undefined()).or(z.string()),
   key: z.string()
 })
 
