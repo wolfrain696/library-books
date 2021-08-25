@@ -6,20 +6,65 @@ import {filterByAuthorName, filterByTitle, isAuthor, isBook} from '../Components
 class FavoritesStore {
   favorites: FavoritesType[] = []
   data: string | null = localStorage.getItem('favorite')
-  filteredFavorites : PageType[] = this.favorites.map(el => el.page)
+  filteredFavorites: PageType[] = this.favorites.map(el => el.page)
+  filterField: string = 'filterAll'
+  sidebar: boolean = false
+
   constructor() {
     makeAutoObservable(this)
     this.addFavoritesFromLocal()
     this.filteredFavorites = this.favorites.map(el => el.page)
-
   }
 
-  filterFavorite(text : string) {
+  changeSidebar(status: boolean) {
+    this.sidebar = status
+  }
+
+  filterFavorite(text: string) {
+    this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
+      switch (this.filterField) {
+        case 'filterAll': {
+          return (
+            isBook(element) && filterByTitle(element, text)) || (isAuthor(element) && filterByAuthorName(element, text)
+          )
+        }
+        case 'filterAuthor': {
+          return (
+            isAuthor(element) && filterByAuthorName(element, text)
+          )
+        }
+        case 'filterBook': {
+          return (
+            isBook(element) && filterByTitle(element, text)
+          )
+        }
+        default : return element
+      }
+    })
+  }
+
+  changeSearch(value: string) {
+    this.filterField = value
+  }
+
+  filterAuthorFavorite() {
     this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
       return (
-        isBook(element) && filterByTitle(element, text)) || (isAuthor(element) && filterByAuthorName(element, text)
+        isAuthor(element)
       )
     })
+  }
+
+  filterBookFavorite() {
+    this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
+      return (
+        isBook(element)
+      )
+    })
+  }
+
+  filterAllFavorite() {
+    return this.filteredFavorites = this.favorites.map(el => el.page)
   }
 
   addFavorite(page: PageType, des: BookInfo | AuthorInfo) {

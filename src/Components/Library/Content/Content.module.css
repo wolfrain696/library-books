@@ -54,6 +54,7 @@
 
 .link {
     color: darkblue;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

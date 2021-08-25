@@ -10,7 +10,6 @@ import FavoritesStore from '../../../store/FavoritesStore'
 
 interface searchProps {
   data: PageType[],
-  changePage: (page: PageType, key: string) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
   category: Category
@@ -18,34 +17,57 @@ interface searchProps {
 
 export const Search: FC<searchProps> = observer(({
                                                    data,
-                                                   changePage,
+
                                                    page,
                                                    favorites,
                                                    category,
                                                  }) => {
 
-    let ShowList
+
     const searchValue = DescriptionStore.searchValue
     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
+    const filterField = FavoritesStore.filterField
+    const totalCount = DescriptionStore.totalCount
 
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      let text = e.target.value
+      FavoritesStore.changeSearch(text)
+      DescriptionStore.changeSearchValue('')
+    }
+
+    const Click = () => {
+      switch (filterField) {
+        case 'filterAll': {
+          FavoritesStore.filterAllFavorite()
+          break
+        }
+        case 'filterAuthor': {
+          FavoritesStore.filterAuthorFavorite()
+          break
+        }
+        case 'filterBook': {
+          FavoritesStore.filterBookFavorite()
+          break
+        }
+      }
+    }
 
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
       let text = e.target.value
       DescriptionStore.changeSearchValue(text)
       if (category === 'favorites') {
-          FavoritesStore.filterFavorite(text)
+        FavoritesStore.filterFavorite(text)
       }
-
     }
 
-  ShowList = data?.map((element) =>
-    <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
-              authorPhoto={element.key}
-              key={element.key} url={element.key}
-              name={element.name} title={element.title} img={element.cover_edition_key} />,
-  )
 
+    const ShowList = data?.map((element) =>
+      <ListItem category={category} page={page} favorites={favorites} item={element}
+                authorPhoto={element.key}
+                key={element.key} url={element.key}
+                name={element.name} title={element.title} img={element.cover_edition_key} />,
+    )
 
     const Search = (e: React.KeyboardEvent) => {
       if (e.key === 'Enter') {
@@ -57,7 +79,6 @@ export const Search: FC<searchProps> = observer(({
       }
     }
 
-
     useEffect(() => {
       if (fetching)
         DescriptionStore.lazyData()
@@ -67,23 +88,32 @@ export const Search: FC<searchProps> = observer(({
     const scrollHandler = (e: React.BaseSyntheticEvent) => {
       let scrollHeight = e.target.scrollHeight
       let scrollTop = e.target.scrollTop
-      if (scrollHeight - (scrollTop + 500) < 100)
+      if (scrollHeight - (scrollTop + 500) < 100 && (data.length < totalCount || (category === 'default' && data.length < 100)))
         DescriptionStore.changeFetching(true)
     }
-
-
-
 
     return (
       <div className={S.content}>
         <div className={S.search}>
           <img src={searchImg} alt='search' />
           <input
+            className={S.input}
             placeholder='Поиск...'
             onChange={changeValue}
             value={searchValue}
             onKeyUp={Search}
           />
+          {
+            category === 'favorites' &&
+            <select
+              onChange={handleChange}
+              onClick={Click}
+            >
+              <option value='filterAll'>ВСЁ</option>
+              <option value='filterAuthor'>АВТОРЫ</option>
+              <option value='filterBook'>КНИГИ</option>
+            </select>
+          }
         </div>
         <ul className={S.searchList} onScroll={scrollHandler}>
           {ShowList}

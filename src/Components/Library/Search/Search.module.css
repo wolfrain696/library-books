@@ -12,7 +12,7 @@
     min-height: 49px;
 }
 
-input {
+.input {
     width: 195px;
     font-size: 24px;
 }
@@ -50,5 +50,7 @@ button {
 }
 
 @media (max-width: 800px) {
-
+    .input{
+        width: 148px;
+    }
 }

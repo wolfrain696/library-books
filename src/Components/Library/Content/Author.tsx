@@ -6,43 +6,27 @@ import {ExitButton} from './ExitButoon/ExitButton'
 import {FC} from 'react'
 import {AuthorInfo, FavoritesType, PageType} from '../../../Types/Types'
 import DescriptionStore from '../../../store/DescriptionStore'
+import FavoritesStore from '../../../store/FavoritesStore'
 
 
 interface AuthorProps {
   page: PageType,
   info: AuthorInfo,
   favorites: FavoritesType[],
-  onFavorites: (page: PageType, info: AuthorInfo) => void,
-  removeFavorite: (key: string) => void,
-  changePage: (page: PageType | undefined, key: string) => void
 }
 
 export const Author: FC<AuthorProps> = ({
                                           page,
                                           info,
                                           favorites,
-                                          onFavorites,
-                                          removeFavorite,
-                                          changePage,
                                         }) => {
 
   let favoriteStatus: boolean = favorites.filter((el) => el.page.name === page?.name).length === 1
 
-  const addFavorites = () => {
-    onFavorites(page, info)
-  }
-  const windowWidth = () => {
-    let w = window.innerWidth
-    //todo зачем здесь? он ничего не изменит, если не использовать state или mobx
-    //в идеале надо вынести это в стор
-    window.onresize = () => {
-      w = window.innerWidth
-    }
-    return w
-  }
 
-  const listOfWorks = (val: string ) => {
+  const listOfWorks = (val: string) => {
     DescriptionStore.addAuthorBooks(val)
+    DescriptionStore.changeSearchValue('')
   }
 
   let biography = info.bio
@@ -57,8 +41,8 @@ export const Author: FC<AuthorProps> = ({
 
   return (
     <div className={S.description}>
-      {windowWidth() < 760 && <div>
-        <ExitButton changePage={changePage} />
+      {window.innerWidth < 760 && <div>
+        <ExitButton />
       </div>}
       <div className={S.top}>
         <div className={S.avatar}>
@@ -80,11 +64,11 @@ export const Author: FC<AuthorProps> = ({
             Список работ
           </p>
           {favoriteStatus ?
-            <button onClick={() => removeFavorite(page?.key)}>
+            <button onClick={() => FavoritesStore.removeFavorites(page?.key)}>
               <img src={favoriteActive} alt='like' className={S.like_book} />
             </button>
             :
-            <button onClick={addFavorites}>
+            <button onClick={() => FavoritesStore.addFavorite(page, info)}>
               <img src={heartImg} alt='like' className={S.like_book} />
             </button>
           }
