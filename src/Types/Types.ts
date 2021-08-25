@@ -38,6 +38,7 @@ const BookDataResponse = z.object({
   name: z.string().or(z.undefined()),
   type: z.string().or(z.undefined()),
   top_work: z.string(),
+  authors: z.array(z.object({key: z.string(), name: z.string()})).or(z.undefined()),
   author_name: z.string().or(z.undefined()),
   publish_date: z.array(z.string()),
   cover_edition_key: z.string()

@@ -18,6 +18,7 @@ class DescriptionStore {
   searchAuthor: PageType[] = []
   category: Category = 'default'
   offset: number = 0
+  totalCount : number = 0
 
 
   constructor() {
@@ -38,7 +39,10 @@ class DescriptionStore {
     if (this.searchValue !== '')
       this.loading = true
     SearchFetch(this.searchValue, 1)
-      .then(response => runInAction(() => this.searchData = [...response.docs]))
+      .then(response => runInAction(() => {
+        this.searchData = [...response.docs]
+        this.totalCount = response.numFound
+      }))
       .then(() => runInAction(() => this.loading = false))
       .then(() => runInAction(() => (this.countPage = 1)))
   }
@@ -47,7 +51,10 @@ class DescriptionStore {
     this.category = 'books'
     this.searchData = []
     this.loading = true
-    AuthorBooks(val, 1).then(response => runInAction(() => this.searchData = [...response.docs]))
+    AuthorBooks(val, 1).then(response => runInAction(() => {
+      this.searchData = [...response.docs]
+      this.totalCount = response.numFound
+    }))
       .then(() => runInAction(() => this.loading = false))
       .then(() => runInAction(() => this.searchField = true))
     this.searchValue = val
@@ -68,7 +75,6 @@ class DescriptionStore {
         .then(() => runInAction(() => this.searchField = false))
     }
     if (this.category === 'default') {
-      console.log(this.loading)
       this.offset += 15
       this.loading = true
       DefaultBook(this.offset).then(response =>
@@ -80,7 +86,7 @@ class DescriptionStore {
       this.offset += 10
       this.loading = true
       SearchFetchAuthor(this.searchValue, this.offset)
-        .then(respon => runInAction(() => this.searchAuthor = [...this.searchAuthor, ...respon.docs]))
+        .then(response => runInAction(() => this.searchAuthor = [...this.searchAuthor, ...response.docs]))
         .then(() => runInAction(() => this.loading = false))
         .then(() => runInAction(() => this.fetching = false))
     }
@@ -97,9 +103,12 @@ class DescriptionStore {
 
   addDefaultBooks() {
     this.loading = true
-    DefaultBook(1)
+    DefaultBook(0)
       .then(response =>
-        runInAction(() => this.defaultBooks = [...response.works]))
+        runInAction(() => {
+          this.defaultBooks = [...response.works]
+          this.totalCount = response.numFound
+        }))
       .then(() => runInAction(() => this.loading = false))
   }
 
@@ -113,6 +122,9 @@ class DescriptionStore {
 
   changeCategory(val: Category) {
     this.category = val
+  }
+  removeDescription(){
+    this.description = undefined
   }
 }
 

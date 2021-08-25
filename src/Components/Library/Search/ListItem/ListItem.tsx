@@ -3,6 +3,7 @@ import S from './BookCard.module.css'
 import favoriteActive from '../../../../img/favoriteActive.svg'
 import avatar from '../../../../img/avatar_author-lg.png'
 import {Category, FavoritesType, PageType} from '../../../../Types/Types'
+import DescriptionStore from '../../../../store/DescriptionStore'
 
 interface ListProps {
   title?: string,
@@ -10,7 +11,6 @@ interface ListProps {
   name?: string,
   authorPhoto: string,
   item: PageType,
-  changePage: (page: PageType, key: string) => void,
   page: PageType | undefined,
   favorites: FavoritesType[],
   url: string,
@@ -23,7 +23,6 @@ export const ListItem: FC<ListProps> = ({
                                           name,
                                           authorPhoto,
                                           item,
-                                          changePage,
                                           page,
                                           favorites,
                                           url,
@@ -32,6 +31,14 @@ export const ListItem: FC<ListProps> = ({
 
   let favoriteStatus = favorites.filter(el => el.page.key === item.key).length === 1
 
+  const changePage = (page: PageType | undefined, key: string) => {
+    DescriptionStore.setCurrentPage(page)
+    if (page?.type === 'author') {
+      DescriptionStore.setDescription('/authors/' + key)
+    } else {
+      DescriptionStore.setDescription(key)
+    }
+  }
   return (
     <li className={page === item ? S.card + ' ' + S.active : S.card}
         onClick={() => changePage(item, url)}

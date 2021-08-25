@@ -5,13 +5,7 @@ import {FC} from 'react'
 import S from './Library.module.css'
 import {Author} from './Content/Author'
 import {Header} from './Header/Header'
-import {
-  AuthorInfo,
-  AuthorInfoGuard,
-  BookInfo,
-  BookInfoGuard,
-  PageType,
-} from '../../Types/Types'
+import {AuthorInfoGuard, BookInfoGuard} from '../../Types/Types'
 import FavoritesStore from '../../store/FavoritesStore'
 import {observer} from 'mobx-react-lite'
 import classNames from 'classnames'
@@ -47,33 +41,14 @@ export const Library: FC = observer(() => {
       }
     }
 
-    const changePage = (page: PageType | undefined, key: string) => {
-      DescriptionStore.setCurrentPage(page)
-      if (page?.type === 'author') {
-        DescriptionStore.setDescription('/authors/' + key)
-      } else {
-        DescriptionStore.setDescription(key)
-      }
-    }
-
-    const onFavorites = (page: PageType, info: BookInfo | AuthorInfo) => {
-      FavoritesStore.addFavorite(page, info)
-    }
-
-    const removeFavorite = (key: string) => {
-      FavoritesStore.removeFavorites(key)
-    }
-
     if (description && description.type?.key !== undefined && currentPage) {
 
       if (description.type.key === '/type/work' && BookInfoGuard(description)) {
         elementDescription =
-          <Book removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                info={description} changePage={changePage} />
+          <Book favorites={favorites} page={currentPage} info={description} />
       } else if (description.type.key === '/type/author' && AuthorInfoGuard(description)) {
         elementDescription =
-          <Author removeFavorite={removeFavorite} favorites={favorites} onFavorites={onFavorites} page={currentPage}
-                  info={description} changePage={changePage} />
+          <Author favorites={favorites} page={currentPage} info={description} />
       }
 
     }
@@ -87,9 +62,9 @@ export const Library: FC = observer(() => {
           </div>
           <div className={S.content}>
             {window.innerWidth >= 761 &&
-            <Search category={category} favorites={favorites} page={currentPage} data={data} changePage={changePage} />}
+            <Search category={category} favorites={favorites} page={currentPage} data={data} />}
             {(currentPage?.type === undefined && description === undefined) && window.innerWidth <= 760 ?
-              <Search category={category} favorites={favorites} page={currentPage} data={data} changePage={changePage} />
+              <Search category={category} favorites={favorites} page={currentPage} data={data} />
               : null
             }
             {

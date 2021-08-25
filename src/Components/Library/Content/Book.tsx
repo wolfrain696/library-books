@@ -7,31 +7,21 @@ import {FC} from 'react'
 import {BookInfo, FavoritesType, PageType} from '../../../Types/Types'
 import DescriptionStore from '../../../store/DescriptionStore'
 
+import FavoritesStore from '../../../store/FavoritesStore'
+
 interface BookProps {
   page: PageType,
   info: BookInfo,
   favorites: FavoritesType[],
-  onFavorites: (page: PageType, info: BookInfo) => void,
-  removeFavorite: (key: string) => void,
-  changePage: (page: PageType | undefined, key: string) => void
 }
 
 export const Book: FC<BookProps> = ({
                                       page,
                                       info,
-                                      onFavorites, favorites,
-                                      removeFavorite,
-                                      changePage,
+                                      favorites,
                                     }) => {
 
   let favoriteStatus: boolean = favorites.filter(el => el.page.title === page.title).length === 1
-
-  const addFavorites = () => {
-    onFavorites(page, info)
-  }
-  const remove = (key: string) => {
-    removeFavorite(key)
-  }
 
   let description = info.description
   let text
@@ -48,11 +38,10 @@ export const Book: FC<BookProps> = ({
       DescriptionStore.setDescription(key[0].author.key)
     }
   }
-
   return (
     <div className={S.description}>
-      { window.innerWidth < 760 && <div>
-        <ExitButton changePage={changePage} />
+      {window.innerWidth < 760 && <div>
+        <ExitButton />
       </div>}
       <div className={S.top}>
         <div className={S.avatar}>
@@ -69,14 +58,16 @@ export const Book: FC<BookProps> = ({
           <h1 className={S.h1}>
             {info.title}
           </h1>
-          <p onClick={() => selectAuthor(info.authors)}>Автор: {page.author_name}</p>
+          <p className={S.link} onClick={() => selectAuthor(info.authors)}>
+            Автор: {page.authors ? page.authors[0].name : page.author_name}
+          </p>
           {page.publish_date && <p>Дата публикации: {page.publish_date[0]}</p>}
           {favoriteStatus ?
-            <button onClick={() => remove(page.key)}>
+            <button onClick={() => FavoritesStore.removeFavorites(page?.key)}>
               <img src={favoriteActive} alt='like' className={S.like_book} />
             </button>
             :
-            <button onClick={addFavorites}>
+            <button onClick={() => FavoritesStore.addFavorite(page, info)}>
               <img src={heartImg} alt='like' className={S.like_book} />
             </button>
           }

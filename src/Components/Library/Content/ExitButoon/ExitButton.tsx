@@ -1,13 +1,16 @@
 import exitIcon from './../../../../img/exit.png'
 import S from './ExitButton.module.css'
 import {FC} from 'react'
-import {PageType} from '../../../../Types/Types'
+import DescriptionStore from '../../../../store/DescriptionStore'
 
-interface ExitButtonProps {
-  changePage: (page: PageType | undefined, key: string) => void
-}
 
-export const ExitButton: FC<ExitButtonProps> = ({changePage}) => {
-  return <button className={S.exit} onClick={() => changePage(undefined, '')}><img src={exitIcon} alt='exit' /></button>
+
+
+export const ExitButton: FC = () => {
+
+  return <button className={S.exit} onClick={() => {
+    DescriptionStore.removeDescription()
+    DescriptionStore.setCurrentPage(undefined)
+  }}><img src={exitIcon} alt='exit' /></button>
 }
 

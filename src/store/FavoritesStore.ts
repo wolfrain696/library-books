@@ -7,36 +7,38 @@ class FavoritesStore {
   favorites: FavoritesType[] = []
   data: string | null = localStorage.getItem('favorite')
   filteredFavorites: PageType[] = this.favorites.map(el => el.page)
-  filterField: string ='filtrAll'
-  sidebar : boolean = false
+  filterField: string = 'filterAll'
+  sidebar: boolean = false
+
   constructor() {
     makeAutoObservable(this)
     this.addFavoritesFromLocal()
     this.filteredFavorites = this.favorites.map(el => el.page)
   }
 
-  changeSidebar(status : boolean){
+  changeSidebar(status: boolean) {
     this.sidebar = status
   }
 
   filterFavorite(text: string) {
     this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
-      switch (this.filterField){
-        case 'filtrAll':{
+      switch (this.filterField) {
+        case 'filterAll': {
           return (
             isBook(element) && filterByTitle(element, text)) || (isAuthor(element) && filterByAuthorName(element, text)
           )
         }
-        case 'filtrAuthor':{
+        case 'filterAuthor': {
           return (
             isAuthor(element) && filterByAuthorName(element, text)
           )
         }
-        case 'filtrBook':{
+        case 'filterBook': {
           return (
             isBook(element) && filterByTitle(element, text)
           )
         }
+        default : return element
       }
     })
   }
@@ -45,7 +47,7 @@ class FavoritesStore {
     this.filterField = value
   }
 
-  filtrAuthorFavorite() {
+  filterAuthorFavorite() {
     this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
       return (
         isAuthor(element)
@@ -53,7 +55,7 @@ class FavoritesStore {
     })
   }
 
-  filtrBookFavorite() {
+  filterBookFavorite() {
     this.filteredFavorites = this.favorites.map(el => el.page).filter((element: PageType) => {
       return (
         isBook(element)
@@ -61,7 +63,7 @@ class FavoritesStore {
     })
   }
 
-  filtrAllFavorite() {
+  filterAllFavorite() {
     return this.filteredFavorites = this.favorites.map(el => el.page)
   }
 
