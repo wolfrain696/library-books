@@ -6,6 +6,7 @@ import {Category, FavoritesType, PageType} from '../../../Types/Types'
 import DescriptionStore from '../../../store/DescriptionStore'
 import {observer} from 'mobx-react-lite'
 import FavoritesStore from '../../../store/FavoritesStore'
+import {toJS} from 'mobx'
 
 
 interface searchProps {
@@ -28,23 +29,44 @@ export const Search: FC<searchProps> = observer(({
     const searchValue = DescriptionStore.searchValue
     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
+    const filterField = FavoritesStore.filterField
 
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      let text = e.target.value
+      FavoritesStore.changeSearch(text)
+    }
+
+    const Clik = () => {
+      switch (filterField) {
+        case 'filtrAll': {
+          FavoritesStore.filtrAllFavorite()
+          break
+        }
+        case 'filtrAuthor': {
+          FavoritesStore.filtrAuthorFavorite()
+          break
+        }
+        case 'filtrBook': {
+          FavoritesStore.filtrBookFavorite()
+          break
+        }
+      }
+    }
 
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
       let text = e.target.value
       DescriptionStore.changeSearchValue(text)
       if (category === 'favorites') {
-          FavoritesStore.filterFavorite(text)
+        FavoritesStore.filterFavorite(text)
       }
-
     }
 
-  ShowList = data?.map((element) =>
-    <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
-              authorPhoto={element.key}
-              key={element.key} url={element.key}
-              name={element.name} title={element.title} img={element.cover_edition_key} />,
-  )
+    ShowList = data?.map((element) =>
+      <ListItem category={category} page={page} favorites={favorites} changePage={changePage} item={element}
+                authorPhoto={element.key}
+                key={element.key} url={element.key}
+                name={element.name} title={element.title} img={element.cover_edition_key} />,
+    )
 
 
     const Search = (e: React.KeyboardEvent) => {
@@ -56,7 +78,6 @@ export const Search: FC<searchProps> = observer(({
         }
       }
     }
-
 
     useEffect(() => {
       if (fetching)
@@ -71,9 +92,6 @@ export const Search: FC<searchProps> = observer(({
         DescriptionStore.changeFetching(true)
     }
 
-
-
-
     return (
       <div className={S.content}>
         <div className={S.search}>
@@ -84,6 +102,17 @@ export const Search: FC<searchProps> = observer(({
             value={searchValue}
             onKeyUp={Search}
           />
+          {
+            category === 'favorites' &&
+              <select
+                onChange={handleChange}
+                onClick={Clik}
+              >
+                <option value='filtrAll'>ВСЁ</option>
+                <option value='filtrAuthor'>АВТОРЫ</option>
+                <option value='filtrBook'>КНИГИ</option>
+              </select>
+          }
         </div>
         <ul className={S.searchList} onScroll={scrollHandler}>
           {ShowList}
