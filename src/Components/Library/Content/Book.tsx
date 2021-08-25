@@ -32,13 +32,6 @@ export const Book: FC<BookProps> = ({
   const remove = (key: string) => {
     removeFavorite(key)
   }
-  const windowWidth = () => {
-    let w = window.innerWidth
-    window.onresize = () => {
-      w = window.innerWidth
-    }
-    return w
-  }
 
   let description = info.description
   let text
@@ -58,7 +51,7 @@ export const Book: FC<BookProps> = ({
 
   return (
     <div className={S.description}>
-      {windowWidth() < 760 && <div>
+      { window.innerWidth < 760 && <div>
         <ExitButton changePage={changePage} />
       </div>}
       <div className={S.top}>

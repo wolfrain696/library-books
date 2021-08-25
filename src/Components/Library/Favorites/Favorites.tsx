@@ -3,6 +3,7 @@ import heartImg from '../../../img/heart.svg'
 import {FC} from 'react'
 import classNames from 'classnames'
 import DescriptionStore from '../../../store/DescriptionStore'
+import {Category} from '../../../Types/Types'
 
 interface FavoritesProps {
   category: string
@@ -11,7 +12,7 @@ interface FavoritesProps {
 export const Favorites: FC<FavoritesProps> = ({category}) => {
 
 
-  const selectCategory = (key: 'books' | 'favorites' | 'authors') => {
+  const selectCategory = (key: Category) => {
       DescriptionStore.changeCategory(key)
   }
 
