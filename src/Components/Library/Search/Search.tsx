@@ -94,7 +94,10 @@ export const Search: FC<searchProps> = observer(({
 
     return (
       <div className={S.content}>
-        <div className={S.search}>
+        {category === 'default' ?
+          <div className={S.default_title}>Топ 100 классических книг</div>
+          :
+          <div className={S.search}>
           <img src={searchImg} alt='search' />
           <input
             className={S.input}
@@ -114,7 +117,7 @@ export const Search: FC<searchProps> = observer(({
               <option value='filterBook'>КНИГИ</option>
             </select>
           }
-        </div>
+        </div>}
         <ul className={S.searchList} onScroll={scrollHandler}>
           {ShowList}
           {loading && <div className={S.load} />}

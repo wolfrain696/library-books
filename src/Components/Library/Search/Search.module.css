@@ -11,7 +11,13 @@
     justify-content: center;
     min-height: 49px;
 }
-
+.default_title{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 49px;
+}
 .input {
     width: 195px;
     font-size: 24px;
