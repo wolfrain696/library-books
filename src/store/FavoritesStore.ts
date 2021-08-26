@@ -38,7 +38,8 @@ class FavoritesStore {
             isBook(element) && filterByTitle(element, text)
           )
         }
-        default: return  element
+        default:
+          return element
       }
     })
   }
