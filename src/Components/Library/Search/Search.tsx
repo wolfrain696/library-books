@@ -27,17 +27,12 @@ export const Search: FC<searchProps> = observer(({
     const searchValue = DescriptionStore.searchValue
     const loading = DescriptionStore.loading
     const fetching = DescriptionStore.fetching
-    const filterField = FavoritesStore.filterField
     const totalCount = DescriptionStore.totalCount
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       let text = e.target.value
       FavoritesStore.changeSearch(text)
-      DescriptionStore.changeSearchValue('')
-    }
-
-    const Click = () => {
-      switch (filterField) {
+      switch (text) {
         case 'filterAll': {
           FavoritesStore.filterAllFavorite()
           break
@@ -52,6 +47,7 @@ export const Search: FC<searchProps> = observer(({
         }
       }
     }
+
 
     const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
       let text = e.target.value
@@ -98,26 +94,25 @@ export const Search: FC<searchProps> = observer(({
           <div className={S.default_title}>Топ 100 классических книг</div>
           :
           <div className={S.search}>
-          <img src={searchImg} alt='search' />
-          <input
-            className={S.input}
-            placeholder='Поиск...'
-            onChange={changeValue}
-            value={searchValue}
-            onKeyUp={Search}
-          />
-          {
-            category === 'favorites' &&
-            <select
-              onChange={handleChange}
-              onClick={Click}
-            >
-              <option value='filterAll'>ВСЁ</option>
-              <option value='filterAuthor'>АВТОРЫ</option>
-              <option value='filterBook'>КНИГИ</option>
-            </select>
-          }
-        </div>}
+            <img src={searchImg} alt='search' />
+            <input
+              className={S.input}
+              placeholder='Поиск...'
+              onChange={changeValue}
+              value={searchValue}
+              onKeyUp={Search}
+            />
+            {
+              category === 'favorites' &&
+              <select
+                onChange={handleChange}
+              >
+                <option value='filterAll'>ВСЁ</option>
+                <option value='filterAuthor'>АВТОРЫ</option>
+                <option value='filterBook'>КНИГИ</option>
+              </select>
+            }
+          </div>}
         <ul className={S.searchList} onScroll={scrollHandler}>
           {ShowList}
           {loading && <div className={S.load} />}

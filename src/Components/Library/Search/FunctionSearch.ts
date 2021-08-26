@@ -1,7 +1,7 @@
 import {PageType} from '../../../Types/Types'
 
 function isBook(element: PageType) {
-  return element.type === 'work'
+  return element.type === 'work' || element.title !== undefined
 }
 
 function isAuthor(element: PageType) {
