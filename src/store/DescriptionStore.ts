@@ -4,13 +4,12 @@ import {AuthorInfo, BookInfo, Category, PageType} from '../Types/Types'
 import {DefaultBook, DescriptionData, SearchFetch, SearchFetchAuthor, AuthorBooks} from '../Fetch/SearchFetch'
 
 
-
 class DescriptionStore {
   currentPage: PageType | undefined
   description: BookInfo | AuthorInfo | undefined
   searchValue: string = ''
-  searchData:  PageType[] = []
-  defaultBooks:  PageType[] = []
+  searchData: PageType[] = []
+  defaultBooks: PageType[] = []
   loading: boolean = false
   searchField: boolean = false
   countPage: number = 1
@@ -18,7 +17,7 @@ class DescriptionStore {
   searchAuthor: PageType[] = []
   category: Category = 'default'
   offset: number = 0
-  totalCount : number = 0
+  totalCount: number = 0
 
 
   constructor() {
@@ -38,6 +37,7 @@ class DescriptionStore {
   addData() {
     if (this.searchValue !== '')
       this.loading = true
+      this.searchField = false
     SearchFetch(this.searchValue, 1)
       .then(response => runInAction(() => {
         this.searchData = [...response.docs]
@@ -47,17 +47,19 @@ class DescriptionStore {
       .then(() => runInAction(() => (this.countPage = 1)))
   }
 
-  addAuthorBooks  (val:any) {
+  addAuthorBooks(val: any) {
     this.category = 'books'
     this.searchData = []
     this.loading = true
+    this.countPage = 1
+    this.searchValue = val
     AuthorBooks(val, 1).then(response => runInAction(() => {
       this.searchData = [...response.docs]
       this.totalCount = response.numFound
     }))
       .then(() => runInAction(() => this.loading = false))
       .then(() => runInAction(() => this.searchField = true))
-    this.searchValue = val
+
   }
 
   lazyData() {
@@ -72,7 +74,6 @@ class DescriptionStore {
         )
         .then(() => runInAction(() => this.loading = false))
         .then(() => runInAction(() => this.fetching = false))
-        .then(() => runInAction(() => this.searchField = false))
     }
     if (this.category === 'default') {
       this.offset += 15
@@ -123,7 +124,8 @@ class DescriptionStore {
   changeCategory(val: Category) {
     this.category = val
   }
-  removeDescription(){
+
+  removeDescription() {
     this.description = undefined
   }
 }

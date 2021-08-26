@@ -26,7 +26,8 @@ export const Author: FC<AuthorProps> = ({
 
   const listOfWorks = (val: string) => {
     DescriptionStore.addAuthorBooks(val)
-    DescriptionStore.changeSearchValue('')
+    window.innerWidth < 800 &&
+    DescriptionStore.removeDescription()
   }
 
   let biography = info.bio
