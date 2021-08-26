@@ -14,6 +14,7 @@ export const Favorites: FC<FavoritesProps> = ({category}) => {
 
   const selectCategory = (key: Category) => {
       DescriptionStore.changeCategory(key)
+      DescriptionStore.changeSearchValue('')
   }
 
   return (
