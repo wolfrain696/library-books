@@ -28,6 +28,7 @@ export const Author: FC<AuthorProps> = ({
     DescriptionStore.addAuthorBooks(val)
     window.innerWidth < 800 &&
     DescriptionStore.removeDescription()
+    DescriptionStore.setCurrentPage(undefined)
   }
 
   let biography = info.bio
