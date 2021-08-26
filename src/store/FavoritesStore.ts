@@ -25,7 +25,7 @@ class FavoritesStore {
       switch (this.filterField) {
         case 'filterAll': {
           return (
-            isBook(element) && filterByTitle(element, text)) || (isAuthor(element) && filterByAuthorName(element, text)
+            filterByTitle(element, text) || filterByAuthorName(element, text)
           )
         }
         case 'filterAuthor': {
@@ -38,7 +38,7 @@ class FavoritesStore {
             isBook(element) && filterByTitle(element, text)
           )
         }
-        default : return element
+        default: return  element
       }
     })
   }

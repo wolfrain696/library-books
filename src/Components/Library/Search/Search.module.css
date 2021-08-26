@@ -12,6 +12,14 @@
     min-height: 49px;
 }
 
+.default_title {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 49px;
+}
+
 .input {
     width: 195px;
     font-size: 24px;
@@ -31,7 +39,8 @@ button {
     overflow-y: scroll;
     max-height: 500px;
 }
-.load{
+
+.load {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -40,17 +49,18 @@ button {
 
     animation: loading 2s infinite;
 }
+
 @keyframes loading {
-    0%{
+    0% {
         transform: rotate(0) scale(1);
     }
-    100%{
+    100% {
         transform: rotate(360deg) scale(1.5);
     }
 }
 
 @media (max-width: 800px) {
-    .input{
+    .input {
         width: 148px;
     }
 }
